@@ -110,38 +110,6 @@ All icon components support these props:
 - `class: Option<String>` - CSS class names
 - Framework-specific props like `node_ref`, `style`, etc.
 
-## 🛠️ Development
-
-### Generating Icons
-
-To regenerate all icon components from the latest Lucide icons:
-
-```bash
-./scripts/generate-icons.sh
-```
-
-This script will:
-1. 📥 Download the latest SVG icons from Lucide
-2. 🦀 Generate Rust components for all frameworks
-3. 📝 Update module exports
-4. 🧹 Clean up temporary files
-
-### Project Structure
-
-```
-lucide-rs/
-├── packages/lucide/          # Main crate
-│   ├── src/
-│   │   ├── dioxus/          # Dioxus components
-│   │   ├── leptos/          # Leptos components  
-│   │   ├── yew/             # Yew components
-│   │   ├── sycamore/        # Sycamore components
-│   │   └── bin/             # Code generation binary
-│   └── Cargo.toml
-└── scripts/                 # Build scripts
-    └── generate-icons.sh    # Icon generation script
-```
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -149,8 +117,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Icons from [Lucide](https://lucide.dev/)
-- Inspired by [RustForWeb/lucide](https://github.com/RustForWeb/lucide)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.

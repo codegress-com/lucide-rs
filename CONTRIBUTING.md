@@ -2,167 +2,68 @@
 
 Thank you for your interest in contributing to Lucide Rust! 🎨
 
-## Quick Start
+## 🎯 Important Note About Icons
 
-1. **Fork** the repository
-2. **Clone** your fork locally
-3. **Create** a feature branch (`git checkout -b feat/amazing-feature`)
-4. **Make** your changes
-5. **Test** your changes (`cargo test`)
-6. **Commit** and **push** to your fork
-7. **Open** a pull request
+**Icons in this library are automatically generated** from the upstream [Lucide](https://lucide.dev) project. We don't manually create or modify individual icon files, as they are synced and generated from the main Lucide icon set.
 
-## Development Setup
+## 🤝 How You Can Contribute
 
-### Prerequisites
+We handle all the technical implementation and code maintenance. Your ideas, feedback, and issue reports are exactly what we need to make this project better!
 
-- **Rust** 1.70+ with Cargo
-- **Git** for version control
+### 🐛 Found a Bug?
 
-### Installation
+Use our **[bug report template](.github/ISSUE_TEMPLATE/bug_report.yml)** and include:
 
-```bash
-git clone https://github.com/vaclavhrach/lucide-rs.git
-cd lucide-rs
-
-# Install dependencies and build
-cargo build
-
-# Run tests
-cargo test
-
-# Run examples
-cd apps/examples/leptos-csr
-cargo run
-```
-
-## Project Structure
-
-```
-lucide-rs/
-├── packages/lucide/                # Main library
-│   ├── src/
-│   │   ├── bin/generate-icons.rs   # Icon generation script
-│   │   ├── dioxus/                 # Dioxus components
-│   │   ├── leptos/                 # Leptos components  
-│   │   ├── sycamore/               # Sycamore components
-│   │   └── yew/                    # Yew components
-│   └── icons/                      # SVG source files
-└── apps/examples/                  # Example applications
-    ├── dioxus/
-    ├── leptos/
-    ├── sycamore/
-    └── yew/
-```
-
-## How to Contribute
-
-### 🐛 Reporting Bugs
-
-Use our [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml) and include:
-
-- **Framework** (Leptos, Yew, Dioxus, Sycamore)
-- **Version** you're using
+- **Framework** you're using (Leptos, Yew, Dioxus, Sycamore)
+- **Version** of lucide-rs you're using
 - **Steps to reproduce** the issue
 - **Expected vs actual** behavior
 
-### ✨ Requesting Features
+### ✨ Have an Idea?
 
-Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.yml) for:
+Use our **[feature request template](.github/ISSUE_TEMPLATE/feature_request.yml)** to suggest:
 
-- **New icons** or icon categories
-- **Framework integration** improvements
-- **Developer experience** enhancements
+- **New framework integrations** 
+- **API improvements**
+- **Documentation enhancements**
+- **Better developer experience**
 
-### 🔧 Code Contributions
+### 🎨 Need a New Icon?
 
-#### Adding New Icons
+**Icons come from the upstream [Lucide](https://lucide.dev) project.** If you need a new icon:
 
-1. Add SVG files to `packages/lucide/icons/`
-2. Add corresponding JSON metadata with categories
-3. Run `cargo run --bin generate-icons --features codegen`
-4. Test in example applications
+1. **[Request it upstream](https://github.com/lucide-icons/lucide/issues/new)** in the main Lucide project
+2. **[Create a feature request](https://github.com/codegress-com/lucide-rs/issues/new?template=feature_request.yml)** here so we can track when it becomes available
+3. Once added upstream, it will be included in our next release
+  
+## Getting Help & Communication
 
-#### Framework Integration
+We'd love to hear from you! Here are the best ways to connect:
 
-Each framework has its own module in `src/`. Follow the existing patterns:
+### 💬 Questions & Ideas
+- **[GitHub Discussions](https://github.com/codegress-com/lucide-rs/discussions)** - Ask questions, share ideas, or discuss improvements
+- **[Start a new discussion](https://github.com/codegress-com/lucide-rs/discussions/new)** - We're here to help!
 
-- **Dioxus**: RSX syntax with props
-- **Leptos**: Signals and reactive properties
-- **Yew**: Html! macro with Properties
-- **Sycamore**: View! macro with Props
+### 🐛 Issues & Features  
+- **[Report a Bug](https://github.com/codegress-com/lucide-rs/issues/new?template=bug_report.yml)** - Help us fix problems
+- **[Request a Feature](https://github.com/codegress-com/lucide-rs/issues/new?template=feature_request.yml)** - Suggest improvements
+- **[Browse existing issues](https://github.com/codegress-com/lucide-rs/issues)** - See what's being worked on
 
-#### Example Applications
-
-Enhance examples in `apps/examples/` to showcase new features or fix issues.
-
-## Code Standards
-
-### Formatting
-
-```bash
-cargo fmt --all
-```
-
-### Linting
-
-```bash
-cargo clippy --all-features -- -W warnings
-```
-
-### Testing
-
-```bash
-# Test core library
-cargo test -p lucide --all-features
-
-# Build examples
-cargo build --workspace
-```
-
-## Icon Categories
-
-Icons are organized into categories for tree-shaking:
-
-- `navigation` - Navigation and UI controls
-- `files` - File and folder operations
-- `communication` - Mail, phone, messaging
-- `multimedia` - Media playback and editing
-- `arrows` - Directional indicators
-- And many more... (see [ICONS.md](ICONS.md))
-
-## Pull Request Guidelines
-
-### Before Submitting
-
-- [ ] Code follows project formatting (`cargo fmt`)
-- [ ] All tests pass (`cargo test`)
-- [ ] Examples build successfully
-- [ ] Changes are documented
-
-### PR Description
-
-Use our [PR template](.github/pull_request_template.md) and include:
-
-- **Clear description** of changes
-- **Type of change** (bug fix, feature, docs, etc.)
-- **Testing** performed
-- **Breaking changes** (if any)
-
-## Getting Help
-
-- 💬 [GitHub Discussions](https://github.com/vaclavhrach/lucide-rs/discussions) for questions
-- 🐛 [Issues](https://github.com/vaclavhrach/lucide-rs/issues) for bugs and features
-- 📚 [Examples](apps/examples/) for implementation patterns
-
-## Recognition
-
-Contributors are automatically recognized in:
-
-- GitHub contributor stats
-- Release notes for significant contributions
-- Special thanks for first-time contributors
+### 📚 Resources
+- **[Examples](apps/examples/)** - Implementation patterns and demos
+- **[Documentation](https://docs.rs/lucide)** - API reference
+- **[Lucide.dev](https://lucide.dev)** - Browse all available icons
 
 ---
+
+## 🌟 Every Contribution Matters
+
+Don't think your contribution is "too small" - every bit helps! Whether you:
+- 💬 Ask a question in discussions
+- 🐛 Report a bug you encountered  
+- 💡 Suggest a new feature or improvement
+- 🎨 Request a new icon
+
+**You're making this project better for everyone!** 
 
 **Happy contributing!** 🚀
