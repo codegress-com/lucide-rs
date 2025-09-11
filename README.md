@@ -36,30 +36,30 @@ use lucide::*;
 
 // Leptos
 view! {
-    <lucide::Home class="w-6 h-6 text-gray-600" />
-    <lucide::Search class="w-4 h-4" />
-    <lucide::Settings class="w-5 h-5 text-blue-500" />
+    <Home class="w-6 h-6 text-gray-600" />
+    <Search class="w-4 h-4" />
+    <Settings class="w-5 h-5 text-blue-500" />
 }
 
 // Yew
 html! {
-    <lucide::Home class="w-6 h-6 text-gray-600" />
-    <lucide::Search size=16 />
-    <lucide::Settings color="blue" />
+    <Home class="w-6 h-6 text-gray-600" />
+    <Search size=16 />
+    <Settings color="blue" />
 }
 
 // Dioxus  
 rsx! {
-    lucide::Home { class: "w-6 h-6 text-gray-600" }
-    lucide::Search { size: 16 }
-    lucide::Settings { color: "blue" }
+    Home { class: "w-6 h-6 text-gray-600" }
+    Search { size: 16 }
+    Settings { color: "blue" }
 }
 
 // Sycamore
 view! {
-    lucide::Home(class="w-6 h-6 text-gray-600")
-    lucide::Search(size=16)  
-    lucide::Settings(color="blue")
+    Home(class="w-6 h-6 text-gray-600")
+    Search(size=16)  
+    Settings(color="blue")
 }
 ```
 
