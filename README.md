@@ -3,9 +3,7 @@
 Beautiful, customizable SVG icons for Rust web applications. Built for modern frameworks like Leptos, Yew, Dioxus, and Sycamore.
 
 [![Crates.io](https://img.shields.io/crates/v/lucide.svg)](https://crates.io/crates/lucide)
-[![Documentation](https://docs.rs/lucide/badge.svg)](https://docs.rs/lucide)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/codegress-com/lucide-rs/workflows/CI/badge.svg)](https://github.com/codegress-com/lucide-rs/actions)
 
 ## ✨ Features
 
@@ -86,7 +84,7 @@ lucide = {
 | `arrows` | 20+ | Directional indicators |
 | `tools` | 35+ | Settings, edit, search, filter |
 
-[📋 **View All Categories & Icons →**](ICONS.md)
+[📋 **View All Categories & Icons →**](https://github.com/codegress-com/lucide-rs/main/ICONS.md)
 
 ### Meta Features
 
@@ -112,7 +110,7 @@ All icon components support these props:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/codegress-com/lucide-rs/main/LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
