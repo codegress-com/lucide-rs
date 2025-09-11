@@ -1,7 +1,6 @@
 [workspace]
 members = [
     "packages/lucide",
-    "apps/examples/leptos"
 ]
 resolver = "2"
 
