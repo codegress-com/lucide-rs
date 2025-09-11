@@ -9,11 +9,14 @@ pub fn Footer() -> impl IntoView {
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     // Logo & Description
                     <div class="col-span-1 md:col-span-2">
-                        <div class="flex items-center space-x-2 mb-4">
-                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                                <span class="text-white font-bold text-sm">"L"</span>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: #D34516">
+                                // Lucide zap icon
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                                </svg>
                             </div>
-                            <span class="font-bold text-xl text-gray-900">"Lucide Rust"</span>
+                            <span class="font-bold text-xl text-neutral-800">"Lucide Rust"</span>
                         </div>
                         <p class="text-gray-600 mb-4 max-w-md">
                             "Beautiful Lucide icons as Rust components for Dioxus, Leptos, Yew, and Sycamore web frameworks. Over 1000 icons, tree-shakeable, and developer friendly."

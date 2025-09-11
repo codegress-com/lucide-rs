@@ -6,11 +6,11 @@ use crate::components::{Layout, CodeBlock};
 pub fn DocsPage() -> impl IntoView {
     view! {
         <Layout>
-            <div class="bg-gray-50 py-16">
+            <div class="bg-white py-16">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-12">
-                        <h1 class="text-4xl font-bold text-gray-900 mb-4">"Documentation"</h1>
-                        <p class="text-xl text-gray-600">"Everything you need to get started with Lucide Rust"</p>
+                    <div class="text-center mb-16">
+                        <h1 class="text-5xl font-bold text-neutral-800 mb-6">"Documentation"</h1>
+                        <p class="text-xl text-neutral-600 max-w-2xl mx-auto">"Everything you need to get started with Lucide Rust"</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -18,37 +18,37 @@ pub fn DocsPage() -> impl IntoView {
                             title="Installation"
                             description="Get started with Lucide Rust in your project"
                             href="/docs/installation"
-                            icon="🚀"
+                            logo_url="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D34516' stroke-width='2'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><path d='M7 10l5 5 5-5'/><path d='M12 15V3'/></svg>"
                         />
                         <DocCard 
                             title="Dioxus"
                             description="Using Lucide icons in Dioxus applications"
                             href="/docs/dioxus"
-                            icon="⚡"
+                            logo_url="/assets/logos/dioxus.png"
                         />
                         <DocCard 
                             title="Leptos"
                             description="Integrating icons in Leptos projects"
                             href="/docs/leptos"
-                            icon="🦎"
+                            logo_url="/assets/logos/leptos.svg"
                         />
                         <DocCard 
                             title="Yew"
                             description="Adding icons to your Yew applications"
                             href="/docs/yew"
-                            icon="🌿"
+                            logo_url="/assets/logos/yew.png"
                         />
                         <DocCard 
                             title="Sycamore"
                             description="Using icons with the Sycamore framework"
                             href="/docs/sycamore"
-                            icon="🌸"
+                            logo_url="/assets/logos/sycamore.svg"
                         />
                         <DocCard 
                             title="Icon Library"
                             description="Browse all available icons"
                             href="/icons"
-                            icon="🎨"
+                            logo_url="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D34516' stroke-width='2'><path d='M3 3h7v7H3z'/><path d='M14 3h7v7h-7z'/><path d='M14 14h7v7h-7z'/><path d='M3 14h7v7H3z'/></svg>"
                         />
                     </div>
                 </div>
@@ -62,14 +62,30 @@ fn DocCard(
     title: &'static str,
     description: &'static str,
     href: &'static str,
-    icon: &'static str,
+    logo_url: &'static str,
 ) -> impl IntoView {
     view! {
         <A href=href>
-            <div class="block bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-6 h-full">
-                <div class="text-3xl mb-4">{icon}</div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-                <p class="text-gray-600">{description}</p>
+            <div class="group block bg-gray-50 hover:bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200 p-8 h-full transform hover:-translate-y-1" style="hover:border-color: #D34516">
+                <div class="mb-6">
+                    <div class="w-12 h-12 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 p-2 flex items-center justify-center">
+                        <img 
+                            src=logo_url
+                            alt=format!("{} logo", title)
+                            class="w-full h-full object-contain"
+                        />
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-neutral-800 mb-3 group-hover:" style="group-hover:color: #D34516">{title}</h3>
+                <p class="text-neutral-600 leading-relaxed">{description}</p>
+                
+                // Arrow icon
+                <div class="mt-6 flex items-center text-neutral-400 group-hover:text-[#D34516] transition-colors">
+                    <span class="text-sm font-medium mr-2">"Learn more"</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14m-7-7 7 7-7 7"/>
+                    </svg>
+                </div>
             </div>
         </A>
     }

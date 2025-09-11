@@ -33,6 +33,7 @@ pub fn App() -> impl IntoView {
             <Routes fallback=NotFound>
                 <Route path=path!("/") view=HomePage/>
                 <Route path=path!("/icons") view=IconsPage/>
+                <Route path=path!("/get-started") view=GetStarted/>
                 <Route path=path!("/docs") view=DocsPage/>
                 <Route path=path!("/docs/installation") view=InstallationPage/>
                 <Route path=path!("/docs/dioxus") view=DioxusDocsPage/>

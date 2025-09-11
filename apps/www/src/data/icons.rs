@@ -280,6 +280,281 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["sky", "storage", "weather"],
         svg_path: "M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"
     },
+    
+    // More Navigation Icons
+    IconInfo {
+        name: "chevron-up",
+        display_name: "Chevron Up",
+        category: "navigation",
+        tags: &["arrow", "up", "direction"],
+        svg_path: "m18 15-6-6-6 6"
+    },
+    IconInfo {
+        name: "chevron-down",
+        display_name: "Chevron Down",
+        category: "navigation",
+        tags: &["arrow", "down", "direction"],
+        svg_path: "m6 9 6 6 6-6"
+    },
+    IconInfo {
+        name: "chevron-left",
+        display_name: "Chevron Left",
+        category: "navigation",
+        tags: &["arrow", "left", "direction"],
+        svg_path: "m15 18-6-6 6-6"
+    },
+    IconInfo {
+        name: "chevron-right",
+        display_name: "Chevron Right",
+        category: "navigation",
+        tags: &["arrow", "right", "direction"],
+        svg_path: "m9 18 6-6-6-6"
+    },
+    IconInfo {
+        name: "plus",
+        display_name: "Plus",
+        category: "navigation",
+        tags: &["add", "create", "new"],
+        svg_path: "M5 12h14 M12 5v14"
+    },
+    IconInfo {
+        name: "minus",
+        display_name: "Minus",
+        category: "navigation",
+        tags: &["remove", "subtract", "delete"],
+        svg_path: "M5 12h14"
+    },
+    IconInfo {
+        name: "more-horizontal",
+        display_name: "More Horizontal",
+        category: "navigation",
+        tags: &["dots", "menu", "options"],
+        svg_path: "M5 12h.01 M12 12h.01 M19 12h.01"
+    },
+    IconInfo {
+        name: "more-vertical",
+        display_name: "More Vertical",
+        category: "navigation",
+        tags: &["dots", "menu", "options"],
+        svg_path: "M12 5h.01 M12 12h.01 M12 19h.01"
+    },
+    
+    // Additional Actions
+    IconInfo {
+        name: "bookmark",
+        display_name: "Bookmark",
+        category: "actions",
+        tags: &["save", "favorite", "mark"],
+        svg_path: "m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"
+    },
+    IconInfo {
+        name: "eye",
+        display_name: "Eye",
+        category: "actions",
+        tags: &["view", "see", "watch"],
+        svg_path: "M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"
+    },
+    IconInfo {
+        name: "eye-off",
+        display_name: "Eye Off",
+        category: "actions",
+        tags: &["hide", "invisible", "private"],
+        svg_path: "M9.88 9.88a3 3 0 1 0 4.24 4.24 m-1.8-7.07c-1.32-.5-2.75-.73-4.32-.73C2 6.32 2 6.32 2 12s0 5.68 0 5.68c0 0 3 7 10 7a13.16 13.16 0 0 0 5.82-1.35M22 2 2 22"
+    },
+    IconInfo {
+        name: "lock",
+        display_name: "Lock",
+        category: "actions",
+        tags: &["secure", "private", "password"],
+        svg_path: "M11 3a4 4 0 0 1 8 0v6H7V9a4 4 0 0 1 4-4Zm8 8v8a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"
+    },
+    IconInfo {
+        name: "unlock",
+        display_name: "Unlock",
+        category: "actions",
+        tags: &["open", "unlocked", "access"],
+        svg_path: "M7 11V7a5 5 0 0 1 9.9-1M7 11h10v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8Z"
+    },
+    
+    // Technology & Devices
+    IconInfo {
+        name: "smartphone",
+        display_name: "Smartphone",
+        category: "devices",
+        tags: &["mobile", "phone", "device"],
+        svg_path: "M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm5 15h.01"
+    },
+    IconInfo {
+        name: "laptop",
+        display_name: "Laptop",
+        category: "devices",
+        tags: &["computer", "pc", "work"],
+        svg_path: "M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"
+    },
+    IconInfo {
+        name: "monitor",
+        display_name: "Monitor",
+        category: "devices",
+        tags: &["screen", "display", "computer"],
+        svg_path: "M20 3H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8 21h8m-4-4v4"
+    },
+    IconInfo {
+        name: "tablet",
+        display_name: "Tablet",
+        category: "devices",
+        tags: &["ipad", "device", "touch"],
+        svg_path: "M19 2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"
+    },
+    
+    // Social & Communication
+    IconInfo {
+        name: "wifi",
+        display_name: "Wifi",
+        category: "communication",
+        tags: &["internet", "connection", "wireless"],
+        svg_path: "m1 9 2 3c7.5-7.5 19-7.5 26 0l2-3c-8.5-8.5-21.5-8.5-30 0Z m6 6 2 3c3.5-3.5 8.5-3.5 12 0l2-3c-5-5-13-5-18 0Z m6 6h.01"
+    },
+    IconInfo {
+        name: "bluetooth",
+        display_name: "Bluetooth",
+        category: "communication",
+        tags: &["wireless", "connection", "device"],
+        svg_path: "m7 7 10 5-5 5V2l5 5L7 17"
+    },
+    
+    // Text & Content
+    IconInfo {
+        name: "type",
+        display_name: "Type",
+        category: "text",
+        tags: &["font", "typography", "text"],
+        svg_path: "M4 7V4h16v3M9 20h6M12 4v16"
+    },
+    IconInfo {
+        name: "bold",
+        display_name: "Bold",
+        category: "text",
+        tags: &["format", "strong", "weight"],
+        svg_path: "M14 12a4 4 0 0 0 0-8H6v8h8Zm0 0a4 4 0 0 1 0 8H6v-8h8Z"
+    },
+    IconInfo {
+        name: "italic",
+        display_name: "Italic",
+        category: "text",
+        tags: &["format", "slant", "style"],
+        svg_path: "M19 4h-9m4 16H5m4-16L7 20"
+    },
+    IconInfo {
+        name: "underline",
+        display_name: "Underline",
+        category: "text",
+        tags: &["format", "text", "decoration"],
+        svg_path: "M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3M4 21h16"
+    },
+    
+    // Layout & Design
+    IconInfo {
+        name: "align-left",
+        display_name: "Align Left",
+        category: "layout",
+        tags: &["text", "format", "alignment"],
+        svg_path: "M21 6H3M15 12H3M17 18H3"
+    },
+    IconInfo {
+        name: "align-center",
+        display_name: "Align Center",
+        category: "layout",
+        tags: &["text", "format", "alignment"],
+        svg_path: "M17 6H7M19 12H5M21 18H3"
+    },
+    IconInfo {
+        name: "align-right",
+        display_name: "Align Right",
+        category: "layout",
+        tags: &["text", "format", "alignment"],
+        svg_path: "M21 6H9M21 12H15M21 18H7"
+    },
+    IconInfo {
+        name: "grid",
+        display_name: "Grid",
+        category: "layout",
+        tags: &["layout", "structure", "organize"],
+        svg_path: "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"
+    },
+    IconInfo {
+        name: "columns",
+        display_name: "Columns",
+        category: "layout",
+        tags: &["layout", "structure", "vertical"],
+        svg_path: "M12 3h7a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-7m0-18H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h7m0-18v18"
+    },
+    
+    // Status & Alerts
+    IconInfo {
+        name: "check",
+        display_name: "Check",
+        category: "status",
+        tags: &["done", "complete", "success"],
+        svg_path: "M20 6 9 17l-5-5"
+    },
+    IconInfo {
+        name: "check-circle",
+        display_name: "Check Circle",
+        category: "status",
+        tags: &["done", "complete", "success"],
+        svg_path: "M22 11.08V12a10 10 0 1 1-5.93-9.14m-1.42 11.63L20 6"
+    },
+    IconInfo {
+        name: "alert-circle",
+        display_name: "Alert Circle",
+        category: "status",
+        tags: &["warning", "error", "caution"],
+        svg_path: "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z m0-6h.01 M12 8v4"
+    },
+    IconInfo {
+        name: "alert-triangle",
+        display_name: "Alert Triangle",
+        category: "status",
+        tags: &["warning", "error", "caution"],
+        svg_path: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z M12 9v4 M12 17h.01"
+    },
+    IconInfo {
+        name: "info",
+        display_name: "Info",
+        category: "status",
+        tags: &["information", "help", "details"],
+        svg_path: "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z M12 16v-4 M12 8h.01"
+    },
+    
+    // Arrows & Movement
+    IconInfo {
+        name: "arrow-up",
+        display_name: "Arrow Up",
+        category: "navigation",
+        tags: &["direction", "up", "move"],
+        svg_path: "M12 19V5m-7 7 7-7 7 7"
+    },
+    IconInfo {
+        name: "arrow-down",
+        display_name: "Arrow Down",
+        category: "navigation",
+        tags: &["direction", "down", "move"],
+        svg_path: "M12 5v14m7-7-7 7-7-7"
+    },
+    IconInfo {
+        name: "refresh-cw",
+        display_name: "Refresh Clockwise",
+        category: "actions",
+        tags: &["reload", "sync", "update"],
+        svg_path: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8m0 0v-3m0 3h-3m-9 9a9 9 0 0 1-9-9 9.75 9.75 0 0 1 2.74-6.74L6 4m0 0v3m0-3h3"
+    },
+    IconInfo {
+        name: "refresh-ccw",
+        display_name: "Refresh Counter-clockwise",
+        category: "actions",
+        tags: &["reload", "sync", "update"],
+        svg_path: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16m0 0v3m0-3h3m9-9a9 9 0 0 1 9 9 9.75 9.75 0 0 1-2.74 6.74L18 20m0 0v-3m0 3h-3"
+    },
 ];
 
 pub fn get_icons_by_category(category: &str) -> Vec<&'static IconInfo> {
