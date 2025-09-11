@@ -5,7 +5,7 @@ Beautiful, customizable SVG icons for Rust web applications. Built for modern fr
 [![Crates.io](https://img.shields.io/crates/v/lucide.svg)](https://crates.io/crates/lucide)
 [![Documentation](https://docs.rs/lucide/badge.svg)](https://docs.rs/lucide)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/vaclavhrach/lucide-rs/workflows/CI/badge.svg)](https://github.com/vaclavhrach/lucide-rs/actions)
+[![Build Status](https://github.com/codegress-com/lucide-rs/workflows/CI/badge.svg)](https://github.com/codegress-com/lucide-rs/actions)
 
 ## ✨ Features
 

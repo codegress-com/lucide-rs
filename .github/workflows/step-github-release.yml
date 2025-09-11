@@ -46,49 +46,6 @@ jobs:
         with:
           ref: ${{ inputs.tag_name }}
 
-      - name: Download all CLI artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-          # Download all artifacts from the workflow run
-          merge-multiple: false
-
-      - name: Verify artifacts
-        run: |
-          echo "🔍 Verifying downloaded artifacts..."
-
-          # List all downloaded artifacts
-          echo "📁 Artifacts structure:"
-          find artifacts -type f -ls
-
-          # Count expected binaries
-          EXPECTED_BINARIES=4
-          ACTUAL_BINARIES=$(find artifacts -name "shadcn-rust*" -type f | wc -l)
-
-          echo "Expected binaries: $EXPECTED_BINARIES"
-          echo "Found binaries: $ACTUAL_BINARIES"
-
-          if [[ "$ACTUAL_BINARIES" -ne "$EXPECTED_BINARIES" ]]; then
-            echo "⚠️ Warning: Expected $EXPECTED_BINARIES binaries but found $ACTUAL_BINARIES"
-          fi
-
-      - name: Prepare release assets
-        run: |
-          echo "📦 Preparing release assets..."
-
-          # Create a clean directory for release files
-          mkdir -p release-assets
-
-          # Move all CLI binaries to release directory with consistent naming
-          find artifacts -name "shadcn-rust*" -type f -exec cp {} release-assets/ \;
-
-          # List final release assets
-          echo "📋 Release assets:"
-          ls -la release-assets/
-
-          # Calculate file sizes for release notes
-          echo "📊 Asset sizes:"
-          du -h release-assets/*
 
       - name: Generate release notes
         id: release_notes
@@ -97,48 +54,39 @@ jobs:
 
           # Create release notes file
           cat > release-notes.md << EOF
-          ## 🎉 shadcn-rust ${{ inputs.tag_name }}
+          ## 🎉 Lucide Rust ${{ inputs.tag_name }}
 
-          This release includes the shadcn-rust CLI tool for all major platforms.
+          This release includes the Lucide icon library for Rust UI frameworks.
 
           ### 📥 Installation
 
-          **Via Cargo (Recommended):**
+          **Via Cargo:**
           \`\`\`bash
-          cargo install shadcn-rust
+          cargo add lucide
           \`\`\`
 
-          **Via Direct Download:**
-          Download the appropriate binary for your platform from the assets below.
+          ### 🎨 Supported Frameworks
 
-          ### 🖥️ Platform Support
-
-          | Platform | Architecture | Binary |
-          |----------|-------------|---------|
-          | Linux | x86_64 | \`shadcn-rust-linux\` |
-          | Windows | x86_64 | \`shadcn-rust-windows.exe\` |
-          | macOS | Intel (x86_64) | \`shadcn-rust-macos\` |
-          | macOS | Apple Silicon (ARM64) | \`shadcn-rust-macos-arm64\` |
+          - **Dioxus** - RSX components
+          - **Leptos** - Server-side rendering support
+          - **Yew** - WebAssembly components
+          - **Sycamore** - Reactive components
 
           ### 🚀 Quick Start
 
-          \`\`\`bash
-          # Initialize a new project
-          shadcn-rust init
+          \`\`\`rust
+          use lucide::icons::Heart;
 
-          # Add components
-          shadcn-rust add button card
-
-          # List available components
-          shadcn-rust list
+          // In your component
+          Heart { size: 24, color: "red" }
           \`\`\`
 
           ### 🔗 Useful Links
 
-          - 📚 [Documentation](https://shadcn-rust.com)
-          - 🦀 [Component Registry](https://shadcn-rust.com/registry)
-          - 💬 [Discussions](https://github.com/codegress-com/shadcn-rust/discussions)
-          - 🐛 [Report Issues](https://github.com/codegress-com/shadcn-rust/issues)
+          - 📚 [Documentation](https://docs.rs/lucide)
+          - 🎨 [Lucide Icons](https://lucide.dev)
+          - 💬 [Discussions](https://github.com/codegress-com/lucide-rs/discussions)
+          - 🐛 [Report Issues](https://github.com/codegress-com/lucide-rs/issues)
           EOF
 
           echo "Release notes generated"
@@ -151,23 +99,15 @@ jobs:
           prerelease: ${{ inputs.prerelease }}
           generate_release_notes: true # Auto-generate from commits
           body_path: release-notes.md # Use our custom release notes
-          files: |
-            release-assets/shadcn-rust-linux
-            release-assets/shadcn-rust-windows.exe
-            release-assets/shadcn-rust-macos
-            release-assets/shadcn-rust-macos-arm64
+          # No binary assets for this library release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release summary
         run: |
-          echo "🎉 GitHub release created successfully!"
+          echo "🎉 Lucide Rust release created successfully!"
           echo ""
           echo "🏷️ Tag: ${{ inputs.tag_name }}"
           echo "🔗 Release URL: https://github.com/${{ github.repository }}/releases/tag/${{ inputs.tag_name }}"
           echo ""
-          echo "📦 Assets included:"
-          echo "  - shadcn-rust-linux (Linux x86_64)"
-          echo "  - shadcn-rust-windows.exe (Windows x86_64)"
-          echo "  - shadcn-rust-macos (macOS Intel)"
-          echo "  - shadcn-rust-macos-arm64 (macOS Apple Silicon)"
+          echo "📦 Library available via: cargo add lucide"
