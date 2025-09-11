@@ -1,0 +1,152 @@
+#
+# Release Workflow
+#
+# This workflow handles releases of the Lucide icon library.
+# It manages version updates, creates GitHub releases, and publishes to crates.io.
+#
+# Triggered: Manually via GitHub Actions UI
+# Purpose: Automated release process for the icon library
+#
+
+name: 🚀 Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., 0.1.0)"
+        required: true
+        type: string
+      create_tag:
+        description: "Create git tag for this release"
+        required: true
+        type: boolean
+        default: true
+      publish_crates:
+        description: "Publish to crates.io"
+        required: true
+        type: boolean
+        default: true
+      prerelease:
+        description: "Mark as prerelease"
+        required: false
+        type: boolean
+        default: false
+
+# Permissions required for the entire workflow
+permissions:
+  contents: write # Required for version management and GitHub releases
+
+# Environment variables
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # Step 1: Version management and tagging
+  version-management:
+    name: ⚙️ Version & Tagging
+    uses: ./.github/workflows/step-version-management.yml
+    with:
+      version: ${{ github.event.inputs.version }}
+      create_tag: ${{ github.event.inputs.create_tag == 'true' }}
+    secrets: inherit
+
+  # Step 2: Publish to crates.io
+  publish-crates:
+    name: ⚙️ Publish to Crates.io
+    needs: [version-management]
+    if: ${{ github.event.inputs.publish_crates == 'true' }}
+    uses: ./.github/workflows/step-publish-crates.yml
+    with:
+      ref: ${{ needs.version-management.outputs.tag_name }}
+      dry_run: false
+    secrets: inherit
+
+  # Step 3: Create GitHub release
+  github-release:
+    name: ⚙️ GitHub Release
+    needs: [version-management, publish-crates]
+    if: ${{ github.event.inputs.create_tag == 'true' && !cancelled() && !failure() }}
+    uses: ./.github/workflows/step-github-release.yml
+    with:
+      tag_name: ${{ needs.version-management.outputs.tag_name }}
+      prerelease: ${{ github.event.inputs.prerelease == 'true' }}
+      draft: false
+    secrets: inherit
+
+  # Step 4: Release summary and verification
+  release-summary:
+    name: 📋 Release Summary
+    runs-on: ubuntu-latest
+    needs:
+      [
+        version-management,
+        publish-crates,
+        github-release,
+      ]
+    if: always() # Always run to show summary
+    steps:
+      - name: Display release summary
+        run: |
+          echo "🎉 Release ${{ github.event.inputs.version }} Summary"
+          echo "================================================="
+          echo ""
+
+          # Version Management
+          if [[ "${{ needs.version-management.result }}" == "success" ]]; then
+            echo "✅ Version & Tagging: Success"
+            echo "   🏷️ Tag: ${{ needs.version-management.outputs.tag_name }}"
+          else
+            echo "❌ Version & Tagging: ${{ needs.version-management.result }}"
+          fi
+
+
+          # Crates Publication
+          if [[ "${{ needs.publish-crates.result }}" == "success" ]]; then
+            echo "✅ Crates.io: Published"
+            echo "   📦 https://crates.io/crates/lucide"
+          elif [[ "${{ needs.publish-crates.result }}" == "skipped" ]]; then
+            echo "⏭️ Crates.io: Skipped"
+          else
+            echo "❌ Crates.io: ${{ needs.publish-crates.result }}"
+          fi
+
+
+          # GitHub Release
+          if [[ "${{ needs.github-release.result }}" == "success" ]]; then
+            echo "✅ GitHub Release: Created"
+            echo "   🔗 https://github.com/${{ github.repository }}/releases/tag/${{ needs.version-management.outputs.tag_name }}"
+          elif [[ "${{ needs.github-release.result }}" == "skipped" ]]; then
+            echo "⏭️ GitHub Release: Skipped"
+          else
+            echo "❌ GitHub Release: ${{ needs.github-release.result }}"
+          fi
+
+          echo ""
+          echo "🏁 Release process completed!"
+
+      - name: Check for failures
+        run: |
+          # Check if any critical jobs failed
+          FAILED_JOBS=""
+
+          if [[ "${{ needs.version-management.result }}" == "failure" ]]; then
+            FAILED_JOBS="$FAILED_JOBS version-management"
+          fi
+
+          if [[ "${{ needs.publish-crates.result }}" == "failure" ]]; then
+            FAILED_JOBS="$FAILED_JOBS publish-crates"
+          fi
+
+          if [[ "${{ needs.github-release.result }}" == "failure" ]]; then
+            FAILED_JOBS="$FAILED_JOBS github-release"
+          fi
+
+          if [[ -n "$FAILED_JOBS" ]]; then
+            echo "❌ The following jobs failed: $FAILED_JOBS"
+            echo "Please check the workflow logs and retry if necessary."
+            exit 1
+          else
+            echo "✅ All release steps completed successfully!"
+          fi

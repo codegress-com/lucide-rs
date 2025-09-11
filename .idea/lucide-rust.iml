@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="EMPTY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/apps/examples/dioxus-fullstack/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/examples/leptos-ssr-actix/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/examples/leptos-ssr-axum/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/examples/sycamore/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/examples/yew/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/lucide/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/lucide/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/examples/dioxus/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/examples/leptos/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/lucide/target" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

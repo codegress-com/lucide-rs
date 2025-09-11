@@ -1,0 +1,146 @@
+#
+# Quality Checks Workflow
+#
+# This workflow runs comprehensive quality checks for the Lucide icon library.
+# It includes code formatting, linting, testing, and build verification for
+# all framework integrations and example applications.
+#
+# Triggered on: Pull requests to main branch
+# Purpose: Ensure code quality and prevent regressions before merging
+#
+
+name: ⚙️ Quality Checks
+
+on:
+  pull_request:
+    branches: [main]
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+# Environment variables shared across all jobs
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # Code formatting verification using rustfmt
+  formatting:
+    name: Check Code Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Check code formatting
+        run: cargo fmt --all --check
+
+  # Linting with Clippy to catch common issues
+  linting:
+    name: Run Clippy Lints
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # No additional system dependencies needed for Lucide library
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run Clippy lints
+        run: cargo clippy --all-targets --all-features -- -W warnings
+        continue-on-error: true
+
+  # Run tests for all packages
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # No additional system dependencies needed for Lucide library
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run package tests
+        run: |
+          # Test core Lucide library
+          echo "Testing Lucide library..."
+          cargo test -p lucide --all-features
+          
+          # Test example applications (compile check only)
+          echo "Building example applications..."
+          cargo build -p lucide-yew-example
+          cargo build -p lucide-leptos-csr-example
+          cargo build -p lucide-dioxus-web-example
+          cargo build -p lucide-sycamore-example
+
+  # Verify that all packages can be built successfully
+  build-check:
+    name: Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # No additional system dependencies needed for Lucide library
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Rust cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build all packages
+        run: |
+          # Build core library with all features
+          echo "Building Lucide library..."
+          cargo build -p lucide --all-features
+          
+          # Build example applications
+          echo "Building example applications..."
+          cargo build --workspace --exclude lucide
+
+  # Summary job that requires all checks to pass
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    needs: [formatting, linting, tests, build-check]
+    if: always()
+    steps:
+      - name: Check all jobs succeeded
+        run: |
+          if [[ "${{ needs.formatting.result }}" != "success" ]]; then
+            echo "❌ Code formatting check failed"
+            exit 1
+          fi
+          if [[ "${{ needs.linting.result }}" != "success" ]]; then
+            echo "⚠️ Linting check failed (non-blocking)"
+          fi
+          if [[ "${{ needs.tests.result }}" != "success" ]]; then
+            echo "❌ Tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.build-check.result }}" != "success" ]]; then
+            echo "❌ Build check failed"
+            exit 1
+          fi
+          echo "✅ All quality checks passed!"

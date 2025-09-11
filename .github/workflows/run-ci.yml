@@ -1,0 +1,23 @@
+#
+# Continuous Integration Pipeline
+#
+# This is the main CI pipeline that runs on pull requests to ensure code quality.
+# It delegates to the specialized quality-checks workflow to run all necessary
+# validation steps including formatting, linting, testing, and build verification.
+#
+# Triggered on: Pull requests to main branch
+# Purpose: Ensure code quality and prevent regressions before merging
+#
+
+name: ✅ CI Pipeline
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Run comprehensive quality checks
+  quality-checks:
+    name: ⚙️ Quality Checks
+    uses: ./.github/workflows/step-quality-checks.yml
+    secrets: inherit

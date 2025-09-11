@@ -1,0 +1,70 @@
+#
+# Security Audit Workflow
+#
+# This workflow runs cargo-audit to check for known security vulnerabilities
+# in Rust dependencies. It scans the dependency tree against the RustSec
+# advisory database.
+#
+# Triggered: Called by other workflows (workflow_call)
+# Purpose: Identify security vulnerabilities in dependencies
+#
+
+name: ⚙️ Security Audit
+
+on:
+  # Allow this workflow to be called by other workflows
+  workflow_call:
+    outputs:
+      vulnerabilities_found:
+        description: "Whether security vulnerabilities were found"
+        value: ${{ jobs.audit.outputs.vulnerabilities_found }}
+
+# Environment variables
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # Audit Rust dependencies for known vulnerabilities
+  audit:
+    name: Dependency Security Audit
+    runs-on: ubuntu-latest
+    outputs:
+      vulnerabilities_found: ${{ steps.audit.outputs.vulnerabilities }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-audit
+        run: |
+          echo "Installing cargo-audit..."
+          cargo install cargo-audit --locked
+          echo "✅ cargo-audit installed"
+
+      - name: Run security audit
+        id: audit
+        run: |
+          echo "🔍 Running dependency security audit..."
+
+          # Run cargo audit and capture output
+          if cargo audit --json > audit-results.json; then
+            echo "✅ No known vulnerabilities found"
+            echo "vulnerabilities=false" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ Security audit found issues:"
+            cargo audit
+            echo ""
+            echo "📋 Detailed results saved to audit-results.json"
+            echo "vulnerabilities=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-results
+          path: audit-results.json
+          retention-days: 30

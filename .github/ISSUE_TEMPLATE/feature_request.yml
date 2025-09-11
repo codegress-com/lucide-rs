@@ -1,0 +1,117 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for Lucide icons
+title: "[Feature]: "
+labels: ["enhancement", "needs-discussion"]
+assignees: []
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: What would you like to add or change?
+      placeholder: Short description (new icon, integration, docs, etc.)
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why is this useful?
+      placeholder: Problem this solves / use cases.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - New Icon
+        - Framework Integration
+        - Documentation
+        - Icon Categories
+        - Performance
+        - Other
+
+  - type: dropdown
+    id: frameworks
+    attributes:
+      label: Target frameworks
+      multiple: true
+      options:
+        - Leptos
+        - Yew
+        - Dioxus
+        - Sycamore
+        - Not applicable
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example (optional)
+      placeholder: Code or CLI snippet showing desired behavior.
+        - Leptos
+        - Yew
+        - Sycamore
+        - All frameworks
+        - Framework agnostic
+        - Not applicable
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Usage Examples
+      description: Provide examples of how this feature would be used
+      render: rust
+      placeholder: |
+        // Example of how the feature would be used
+        use lucide::*;
+        
+        // New icon usage
+        <lucide::MyNewIcon class="w-6 h-6" />
+        
+        // Framework integration
+        lucide = { version = "0.1.0", features = ["leptos", "new-category"] }
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: Implementation Ideas (Optional)
+      description: Do you have ideas about how this could be implemented?
+      placeholder: |
+        If you have technical ideas about implementation:
+        - Architecture considerations
+        - Dependencies needed
+        - Potential challenges
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would be helpful
+        - High - Important for my use case
+        - Critical - Blocking my project
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context, mockups, or references
+      placeholder: |
+        Any additional information, links to similar features in other projects,
+        mockups, or references that might help explain the feature.
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be interested in implementing this feature?
+      options:
+        - label: I'm interested in implementing this feature
+          required: false
+        - label: I can help with design and planning
+          required: false
+        - label: I can help with testing and feedback
+          required: false

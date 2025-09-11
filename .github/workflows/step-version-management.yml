@@ -1,0 +1,135 @@
+#
+# Version Management Workflow
+#
+# This workflow handles version bumping and git tag creation for releases.
+# It updates versions across all packages (workspace, CLI, WWW app) in their
+# respective Cargo.toml files and creates a git tag.
+#
+# Triggered: Manually via workflow_dispatch or called by other workflows
+# Purpose: Centralized version management across all workspace packages
+#
+
+name: ⚙️ Version Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., 0.1.0)"
+        required: true
+        type: string
+      create_tag:
+        description: "Create git tag for this release"
+        required: true
+        type: boolean
+        default: true
+  # Allow this workflow to be called by other workflows
+  workflow_call:
+    inputs:
+      version:
+        description: "Version to release (e.g., 0.1.0)"
+        required: true
+        type: string
+      create_tag:
+        description: "Create git tag for this release"
+        required: true
+        type: boolean
+        default: true
+    outputs:
+      tag_name:
+        description: "The created git tag name"
+        value: ${{ jobs.version-bump.outputs.tag_name }}
+
+# Permissions required for this workflow
+permissions:
+  contents: write # Required for pushing commits and tags
+
+# Environment variables
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # Update workspace version and create git tag
+  version-bump:
+    name: Update Version and Create Tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for pushing commits and tags
+    outputs:
+      tag_name: ${{ steps.tag.outputs.tag_name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0 # Fetch full history for proper tagging
+
+      - name: Setup Git configuration
+        run: |
+          # Configure Git for automated commits
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Update all Cargo.toml versions
+        run: |
+          # Update the workspace version in root Cargo.toml
+          echo "Updating workspace version to ${{ inputs.version }}"
+          sed -i 's/^version = ".*"/version = "${{ inputs.version }}"/' Cargo.toml
+
+          # Update CLI package version
+          echo "Updating CLI package version to ${{ inputs.version }}"
+          sed -i 's/^version = ".*"/version = "${{ inputs.version }}"/' packages/cli/Cargo.toml
+
+          # Update WWW app version
+          echo "Updating WWW app version to ${{ inputs.version }}"
+          sed -i 's/^version = ".*"/version = "${{ inputs.version }}"/' apps/www/Cargo.toml
+
+          # Update Cargo.lock to reflect version changes
+          echo "Updating Cargo.lock..."
+          cargo check --quiet
+
+          # Show the changes for verification
+          echo "✅ All versions updated to ${{ inputs.version }}:"
+          echo "  Workspace: $(grep '^version = ' Cargo.toml)"
+          echo "  CLI: $(grep '^version = ' packages/cli/Cargo.toml)"
+          echo "  WWW: $(grep '^version = ' apps/www/Cargo.toml)"
+
+      - name: Commit version changes
+        run: |
+          # Stage and commit version changes for all Cargo.toml files
+          git add Cargo.toml packages/cli/Cargo.toml apps/www/Cargo.toml Cargo.lock
+          git commit -m "chore: bump version to ${{ inputs.version }} across all packages" || {
+            echo "No version changes to commit"
+            exit 0
+          }
+
+      - name: Create and push git tag
+        id: tag
+        if: ${{ inputs.create_tag == true }}
+        run: |
+          # Create version tag with 'v' prefix
+          TAG_NAME="v${{ inputs.version }}"
+          echo "Creating tag: $TAG_NAME"
+
+          git tag $TAG_NAME
+
+          # Push changes and tag to remote
+          git push origin main
+          git push origin $TAG_NAME
+
+          # Output tag name for other jobs
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "✅ Tag $TAG_NAME created and pushed"
+
+      - name: Update latest tag
+        if: ${{ inputs.create_tag == true }}
+        run: |
+          # Update the 'latest' tag to point to this release
+          echo "Updating 'latest' tag..."
+          git tag -f latest
+          git push origin latest --force
+          echo "✅ Latest tag updated"

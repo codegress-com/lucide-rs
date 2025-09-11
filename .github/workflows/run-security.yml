@@ -1,0 +1,101 @@
+#
+# Security Scanning Workflow
+#
+# This workflow runs security scans to identify vulnerabilities in dependencies
+# and performs other security-related checks on the codebase.
+#
+# Triggered: Weekly schedule and on pull requests that modify dependencies
+# Purpose: Maintain security standards and identify potential vulnerabilities
+#
+
+name: 🔒 Security Scan
+
+on:
+  # Run weekly security scans
+  schedule:
+    - cron: "0 2 * * 1" # Every Monday at 2 AM UTC
+
+  # Run on pull requests that modify dependencies
+  pull_request:
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "**/Cargo.toml"
+
+  # Allow manual triggering
+  workflow_dispatch:
+
+# Environment variables
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # Step 1: Run security audit
+  security-audit:
+    name: ⚙️ Security Audit
+    uses: ./.github/workflows/step-security-audit.yml
+    secrets: inherit
+
+  # Step 2: Check for outdated dependencies
+  dependency-outdated:
+    name: ⚙️ Dependency Outdated Check
+    uses: ./.github/workflows/step-dependency-outdated.yml
+    secrets: inherit
+
+  # Security summary and reporting
+  security-summary:
+    name: 📋 Security Summary
+    runs-on: ubuntu-latest
+    needs: [security-audit, dependency-outdated]
+    if: always()
+    steps:
+      - name: Download audit results
+        uses: actions/download-artifact@v4
+        with:
+          name: security-audit-results
+          path: audit-results
+
+      - name: Display security summary
+        run: |
+          echo "🔒 Security Scan Summary"
+          echo "======================="
+          echo ""
+
+          # Audit results
+          if [[ "${{ needs.security-audit.result }}" == "success" ]]; then
+            echo "✅ Dependency Security: No known vulnerabilities"
+          else
+            echo "⚠️ Dependency Security: Issues found"
+            echo "    Check the security-audit job for details"
+          fi
+
+          # Outdated dependencies results
+          if [[ "${{ needs.dependency-outdated.result }}" == "success" ]]; then
+            echo "✅ Dependency Freshness: Check completed"
+          else
+            echo "⚠️ Dependency Freshness: Check failed"
+          fi
+
+          echo ""
+          echo "🔗 Security Resources:"
+          echo "  - Rust Security Advisory Database: https://rustsec.org/"
+          echo "  - Cargo Security Guide: https://doc.rust-lang.org/cargo/reference/security.html"
+          echo ""
+          echo "💡 Recommendations:"
+          echo "  - Review any flagged vulnerabilities promptly"
+          echo "  - Consider updating outdated dependencies regularly"
+          echo "  - Monitor security advisories for used crates"
+
+          # Show specific recommendations based on findings
+          if [[ "${{ needs.security-audit.outputs.vulnerabilities_found }}" == "true" ]]; then
+            echo ""
+            echo "⚠️ SECURITY ALERT: Vulnerabilities detected!"
+            echo "   Please review the audit results and update affected dependencies"
+          fi
+
+          if [[ "${{ needs.dependency-outdated.outputs.outdated_found }}" == "true" ]]; then
+            echo ""
+            echo "📦 MAINTENANCE: Outdated dependencies found"
+            echo "   Consider updating dependencies to latest versions"
+          fi

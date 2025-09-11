@@ -1,0 +1,93 @@
+name: 🐛 Bug Report
+description: Report a bug or issue with Lucide icons
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Briefly describe the problem and what you expected instead.
+      placeholder: Clear and concise description.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Framework
+      description: Which framework?
+      options:
+        - Leptos
+        - Yew
+        - Dioxus
+        - Sycamore
+        - Not applicable
+
+  - type: input
+    id: version
+    attributes:
+      label: Lucide version
+      placeholder: e.g., 0.1.0 (from Cargo.toml)
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      placeholder: Logs, screenshots, minimal repro, etc.
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Describe what actually happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Provide information about your environment
+      placeholder: |
+        - OS: [e.g., macOS 14.0, Ubuntu 22.04, Windows 11]
+        - Rust Version: [e.g., 1.75.0 (`rustc --version`)]
+        - Cargo Version: [e.g., 1.75.0 (`cargo --version`)]
+        - Shell: [e.g., zsh, bash, powershell]
+        - Terminal: [e.g., Terminal.app, iTerm2, Windows Terminal]
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs/Output
+      description: Include any relevant error messages, logs, or output
+      render: shell
+      placeholder: Paste error messages, stack traces, or relevant output here
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or information that might help
+      placeholder: Any additional information that might be relevant
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you like to help fix this issue?
+      options:
+        - label: I'm interested in working on a fix for this issue
+          required: false

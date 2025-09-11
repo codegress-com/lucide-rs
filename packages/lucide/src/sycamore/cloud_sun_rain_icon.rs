@@ -1,0 +1,51 @@
+use sycamore::prelude::*;
+
+#[derive(Props)]
+pub struct CloudSunRainProps {
+    #[prop(default = 24)]
+    pub size: usize,
+    #[prop(default = String::from("currentColor"))]
+    pub color: String,
+    #[prop(default = String::from("none"))]
+    pub fill: String,
+    #[prop(default = 2)]
+    pub stroke_width: usize,
+    #[prop(default = false)]
+    pub absolute_stroke_width: bool,
+    #[prop(default)]
+    pub class: Option<String>,
+}
+
+#[component]
+pub fn CloudSunRain(props: CloudSunRainProps) -> View {
+    let stroke_width = if props.absolute_stroke_width {
+        props.stroke_width * 24 / props.size
+    } else {
+        props.stroke_width
+    };
+    let class = props.class.unwrap_or_default();
+    
+    view! {
+        svg(
+            xmlns="http://www.w3.org/2000/svg",
+            class=format!("lucide {}", class),
+            width=props.size.to_string(),
+            height=props.size.to_string(),
+            viewBox="0 0 24 24",
+            fill=props.fill,
+            stroke=props.color,
+            "stroke-width"=stroke_width.to_string(),
+            "stroke-linecap"="round",
+            "stroke-linejoin"="round",
+        ) {
+            path(d="M12 2v2")
+            path(d="m4.93 4.93 1.41 1.41")
+            path(d="M20 12h2")
+            path(d="m19.07 4.93-1.41 1.41")
+            path(d="M15.947 12.65a4 4 0 0 0-5.925-4.128")
+            path(d="M3 20a5 5 0 1 1 8.9-4H13a3 3 0 0 1 2 5.24")
+            path(d="M11 20v2")
+            path(d="M7 19v2")
+        }
+    }
+}
