@@ -6,6 +6,7 @@
 #
 # Triggered: Manually via GitHub Actions UI
 # Purpose: Automated release process for the icon library
+# Updated: Force refresh for workflow_dispatch visibility
 #
 
 name: 🚀 Release
