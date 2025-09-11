@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/lucide/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/apps/examples/dioxus/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/apps/examples/leptos/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/apps/www/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/packages/lucide/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>

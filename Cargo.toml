@@ -1,7 +1,9 @@
 [workspace]
 members = [
     "packages/lucide",
+    "apps/www"
 ]
+
 resolver = "2"
 
 [workspace.package]
