@@ -2057,6 +2057,7 @@ dependencies = [
  "leptos",
  "leptos_meta",
  "leptos_router",
+ "lucide",
  "serde",
  "serde_json",
  "tracing",

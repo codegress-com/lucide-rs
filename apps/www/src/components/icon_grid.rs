@@ -17,7 +17,7 @@ pub fn IconGrid(search_query: ReadSignal<String>) -> impl IntoView {
                 }}
             </div>
             
-            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3">
+            <div class="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 lg:grid-cols-14 xl:grid-cols-16 gap-4">
                 <For
                     each=filtered_icons
                     key=|icon| icon.name

@@ -26,8 +26,8 @@ gloo-net = { version = "0.6", features = ["http"] }
 gloo-utils = "0.2"
 wasm-bindgen-futures = "0.4"
 
-# Our icon library (temporarily disabled while fixing compatibility)
-# lucide = { path = "../../packages/lucide", features = ["leptos", "all-icons"] }
+# Our icon library (local development version)
+lucide = { path = "../../packages/lucide", features = ["leptos", "all-icons"] }
 
 # Logging
 console_error_panic_hook = "0.1"

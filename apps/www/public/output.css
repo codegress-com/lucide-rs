@@ -477,6 +477,9 @@
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .grid-cols-8 {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
   .flex-col {
     flex-direction: column;
   }
@@ -919,6 +922,10 @@
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
+  .duration-150 {
+    --tw-duration: 150ms;
+    transition-duration: 150ms;
+  }
   .duration-200 {
     --tw-duration: 200ms;
     transition-duration: 200ms;
@@ -926,6 +933,10 @@
   .duration-300 {
     --tw-duration: 300ms;
     transition-duration: 300ms;
+  }
+  .duration-\[25ms\] {
+    --tw-duration: 25ms;
+    transition-duration: 25ms;
   }
   .ease-in-out {
     --tw-ease: var(--ease-in-out);
@@ -1047,13 +1058,6 @@
       }
     }
   }
-  .hover\:text-blue-600 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-blue-600);
-      }
-    }
-  }
   .hover\:text-gray-700 {
     &:hover {
       @media (hover: hover) {
@@ -1145,9 +1149,9 @@
       outline-style: none;
     }
   }
-  .sm\:grid-cols-4 {
+  .sm\:grid-cols-10 {
     @media (width >= 40rem) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(10, minmax(0, 1fr));
     }
   }
   .sm\:flex-row {
@@ -1195,9 +1199,9 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
-  .md\:grid-cols-6 {
+  .md\:grid-cols-12 {
     @media (width >= 48rem) {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(12, minmax(0, 1fr));
     }
   }
   .md\:flex-row {
@@ -1226,9 +1230,9 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
-  .lg\:grid-cols-8 {
+  .lg\:grid-cols-14 {
     @media (width >= 64rem) {
-      grid-template-columns: repeat(8, minmax(0, 1fr));
+      grid-template-columns: repeat(14, minmax(0, 1fr));
     }
   }
   .lg\:px-8 {
@@ -1247,9 +1251,9 @@
       grid-template-columns: repeat(6, minmax(0, 1fr));
     }
   }
-  .xl\:grid-cols-10 {
+  .xl\:grid-cols-16 {
     @media (width >= 80rem) {
-      grid-template-columns: repeat(10, minmax(0, 1fr));
+      grid-template-columns: repeat(16, minmax(0, 1fr));
     }
   }
 }
@@ -1261,11 +1265,6 @@ body {
 }
 pre {
   tab-size: 2;
-}
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-duration: 150ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 button:focus-visible, input:focus-visible, a:focus-visible {
   outline: 2px solid oklch(62.3% 0.214 259.815);

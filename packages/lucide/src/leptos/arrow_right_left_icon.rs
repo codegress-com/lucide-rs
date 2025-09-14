@@ -22,12 +22,12 @@ pub fn ArrowRightLeft(
             node_ref=node_ref
             class:lucide=true
             xmlns="http://www.w3.org/2000/svg"
-            width=size
-            height=size
+            width=move || size.get()
+            height=move || size.get()
             viewBox="0 0 24 24"
-            fill=fill
-            stroke=color
-            stroke-width=stroke_width
+            fill=move || fill.get()
+            stroke=move || color.get()
+            stroke-width=move || stroke_width.get()
             stroke-linecap="round"
             stroke-linejoin="round"
         >
