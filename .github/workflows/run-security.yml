@@ -15,9 +15,9 @@ on:
   schedule:
     - cron: "0 2 * * 1" # Every Monday at 2 AM UTC
 
-  # Run on pushes to dev that modify dependencies (for testing)
+  # Run on pushes to main that modify dependencies (for testing)
   push:
-    branches: [dev]
+    branches: [main]
     paths:
       - "Cargo.toml"
       - "Cargo.lock"
@@ -25,7 +25,7 @@ on:
 
   # Run on pull requests that modify dependencies
   pull_request:
-    branches: [dev]
+    branches: [main]
     paths:
       - "Cargo.toml"
       - "Cargo.lock"

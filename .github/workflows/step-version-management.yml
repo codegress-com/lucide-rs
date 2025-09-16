@@ -109,7 +109,9 @@ jobs:
           git tag $TAG_NAME
 
           # Push changes and tag to remote
-          git push origin dev
+          CURRENT_BRANCH=$(git branch --show-current)
+          echo "Pushing changes to current branch: $CURRENT_BRANCH"
+          git push origin $CURRENT_BRANCH
           git push origin $TAG_NAME
 
           # Output tag name for other jobs

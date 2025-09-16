@@ -13,9 +13,9 @@ name: ✅ CI Pipeline
 
 on:
   push:
-    branches: [dev]
+    branches: [main, features/**]
   pull_request:
-    branches: [dev]
+    branches: [main]
 
 jobs:
   # Run comprehensive quality checks
