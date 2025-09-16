@@ -141,7 +141,7 @@ sycamore = { version = "0.9", optional = true }
 all-features = true
 
 [lib]
-name = "lucide-rust"
+name = "lucide_rust"
 path = "src/lib.rs"
 crate-type = ["rlib"]
 

@@ -2030,7 +2030,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b3bd0dd2cd90571056fdb71f6275fada10131182f84899f4b2a916e565d81d86"
 
 [[package]]
-name = "lucide"
+name = "lucide-docs"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "gloo-net 0.6.0",
+ "gloo-utils 0.2.0",
+ "js-sys",
+ "leptos",
+ "leptos_meta",
+ "leptos_router",
+ "lucide-rust",
+ "serde",
+ "serde_json",
+ "tracing",
+ "tracing-wasm",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
+name = "lucide-rust"
 version = "0.1.0"
 dependencies = [
  "chrono",
@@ -2044,27 +2065,6 @@ dependencies = [
  "serde_json",
  "sycamore",
  "yew",
-]
-
-[[package]]
-name = "lucide-docs"
-version = "0.1.0"
-dependencies = [
- "console_error_panic_hook",
- "gloo-net 0.6.0",
- "gloo-utils 0.2.0",
- "js-sys",
- "leptos",
- "leptos_meta",
- "leptos_router",
- "lucide",
- "serde",
- "serde_json",
- "tracing",
- "tracing-wasm",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
 ]
 
 [[package]]

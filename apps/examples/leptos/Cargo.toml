@@ -15,7 +15,7 @@ categories.workspace = true
 [dependencies]
 leptos = { version = "0.8.2", features = ["csr"] }
 leptos_router = { version = "0.8.2" }
-lucide = { path = "../../../packages/lucide", features = ["leptos", "all-icons"] }
+lucide = { package = "lucide-rust", path = "../../../packages/lucide", features = ["leptos", "all-icons"] }
 
 [lints]
 workspace = true

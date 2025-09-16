@@ -105,8 +105,8 @@ pub fn InstallationPage() -> impl IntoView {
                         <CodeBlock 
                             language="toml" 
                             show_copy=true 
-                            code="[dependencies]
-lucide = { version = \"0.1\", features = [\"leptos\", \"essentials\"] }" 
+code="[dependencies]
+lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"leptos\", \"essentials\"] }"
                         />
                     </section>
 
@@ -170,7 +170,7 @@ pub fn LeptosDocsPage() -> impl IntoView {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use lucide::leptos::zap_icon::Zap;
+code="use lucide::leptos::zap_icon::Zap;
 use leptos::prelude::*;
 
 #[component]
@@ -187,7 +187,7 @@ pub fn MyComponent() -> impl IntoView {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use lucide::leptos::heart_icon::Heart;
+code="use lucide::leptos::heart_icon::Heart;
 
 view! {
     <Heart 
@@ -218,9 +218,9 @@ pub fn DioxusDocsPage() -> impl IntoView {
                         <CodeBlock 
                             language="toml" 
                             show_copy=true 
-                            code="[dependencies]
-lucide = { version = \"0.1\", features = [\"dioxus\", \"essentials\"] }
-dioxus = \"0.6\"" 
+code="[dependencies]
+lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"dioxus\", \"essentials\"] }
+dioxus = \"0.6\""
                         />
                     </section>
 
@@ -230,7 +230,7 @@ dioxus = \"0.6\""
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use dioxus::prelude::*;
+code="use dioxus::prelude::*;
 use lucide::dioxus::zap_icon::Zap;
 
 #[component]
@@ -251,7 +251,7 @@ fn App() -> Element {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use lucide::dioxus::heart_icon::Heart;
+code="use lucide::dioxus::heart_icon::Heart;
 
 rsx! {
     Heart {
@@ -272,7 +272,7 @@ rsx! {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use dioxus::prelude::*;
+code="use dioxus::prelude::*;
 use lucide::dioxus::{
     home_icon::Home,
     search_icon::Search,
@@ -345,9 +345,9 @@ pub fn YewDocsPage() -> impl IntoView {
                         <CodeBlock 
                             language="toml" 
                             show_copy=true 
-                            code="[dependencies]
-lucide = { version = \"0.1\", features = [\"yew\", \"essentials\"] }
-yew = \"0.21\"" 
+code="[dependencies]
+lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"yew\", \"essentials\"] }
+yew = \"0.21\""
                         />
                     </section>
 
@@ -357,7 +357,7 @@ yew = \"0.21\""
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use yew::prelude::*;
+code="use yew::prelude::*;
 use lucide::yew::zap_icon::Zap;
 
 #[function_component]
@@ -378,7 +378,7 @@ fn App() -> Html {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use lucide::yew::heart_icon::Heart;
+code="use lucide::yew::heart_icon::Heart;
 use yew::prelude::*;
 
 html! {
@@ -400,7 +400,7 @@ html! {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use yew::prelude::*;
+code="use yew::prelude::*;
 use lucide::yew::{
     home_icon::Home,
     search_icon::Search,
@@ -493,9 +493,9 @@ pub fn SycamoreDocsPage() -> impl IntoView {
                         <CodeBlock 
                             language="toml" 
                             show_copy=true 
-                            code="[dependencies]
-lucide = { version = \"0.1\", features = [\"sycamore\", \"essentials\"] }
-sycamore = \"0.9\"" 
+code="[dependencies]
+lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"sycamore\", \"essentials\"] }
+sycamore = \"0.9\""
                         />
                     </section>
 
@@ -505,7 +505,7 @@ sycamore = \"0.9\""
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use sycamore::prelude::*;
+code="use sycamore::prelude::*;
 use lucide::sycamore::zap_icon::Zap;
 
 #[component]
@@ -526,7 +526,7 @@ fn App() -> impl IntoView {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use lucide::sycamore::heart_icon::Heart;
+code="use lucide::sycamore::heart_icon::Heart;
 use sycamore::prelude::*;
 
 view! {
@@ -547,7 +547,7 @@ view! {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use sycamore::prelude::*;
+code="use sycamore::prelude::*;
 use lucide::sycamore::{
     heart_icon::Heart,
     heart_filled_icon::HeartFilled
@@ -590,7 +590,7 @@ fn LikeButton() -> impl IntoView {
                         <CodeBlock 
                             language="rust" 
                             show_copy=true 
-                            code="use sycamore::prelude::*;
+code="use sycamore::prelude::*;
 use lucide::sycamore::{
     home_icon::Home,
     search_icon::Search,
