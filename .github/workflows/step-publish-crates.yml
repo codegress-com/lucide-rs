@@ -51,12 +51,12 @@ jobs:
         run: |
           echo "Verifying package configuration..."
 
-          # Check that the lucide package exists and has correct version
-          cargo metadata --format-version=1 | jq -r '.packages[] | select(.name == "lucide") | "\(.name) v\(.version)"'
+          # Check that the lucide-rust package exists and has correct version
+          cargo metadata --format-version=1 | jq -r '.packages[] | select(.name == "lucide-rust") | "\(.name) v\(.version)"'
 
           # Verify package.metadata is correct
           echo "Package metadata:"
-          cargo metadata --format-version=1 | jq '.packages[] | select(.name == "lucide") | .metadata'
+          cargo metadata --format-version=1 | jq '.packages[] | select(.name == "lucide-rust") | .metadata'
 
       - name: Run dry-run publish
         if: ${{ inputs.dry_run == true }}
@@ -64,7 +64,7 @@ jobs:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         run: |
           echo "🧪 Running dry-run publish..."
-          cargo publish -p lucide --dry-run --allow-dirty
+          cargo publish -p lucide-rust --dry-run --allow-dirty
           echo "✅ Dry-run completed successfully"
 
       - name: Publish to crates.io
@@ -75,10 +75,10 @@ jobs:
           echo "📦 Publishing Lucide library to crates.io..."
 
           # Publish the library package
-          cargo publish -p lucide --allow-dirty
+          cargo publish -p lucide-rust --allow-dirty
 
           echo "✅ Package published successfully to crates.io!"
-          echo "🔗 Available at: https://crates.io/crates/lucide"
+          echo "🔗 Available at: https://crates.io/crates/lucide-rust"
 
       - name: Verify publication
         if: ${{ inputs.dry_run != true }}
@@ -89,7 +89,7 @@ jobs:
           sleep 30
 
           # Try to fetch the package info (may take a few minutes to be available)
-          echo "Package should be available soon at https://crates.io/crates/lucide"
+          echo "Package should be available soon at https://crates.io/crates/lucide-rust"
 
           echo "Installation command for users:"
-          echo "  cargo add lucide"
+          echo "  cargo add lucide-rust"

@@ -106,7 +106,7 @@ jobs:
           # Crates Publication
           if [[ "${{ needs.publish-crates.result }}" == "success" ]]; then
             echo "✅ Crates.io: Published"
-            echo "   📦 https://crates.io/crates/lucide"
+            echo "   📦 https://crates.io/crates/lucide-rust"
           elif [[ "${{ needs.publish-crates.result }}" == "skipped" ]]; then
             echo "⏭️ Crates.io: Skipped"
           else
