@@ -1,5 +1,5 @@
 [package]
-name = "lucide"
+name = "lucide-rust"
 edition.workspace = true
 version.workspace = true
 license.workspace = true
@@ -141,7 +141,7 @@ sycamore = { version = "0.9", optional = true }
 all-features = true
 
 [lib]
-name = "lucide"
+name = "lucide-rust"
 path = "src/lib.rs"
 crate-type = ["rlib"]
 
