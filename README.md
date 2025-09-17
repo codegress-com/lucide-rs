@@ -2,7 +2,7 @@
 
 Beautiful, customizable SVG icons for Rust web applications. Built for modern frameworks like Leptos, Yew, Dioxus, and Sycamore.
 
-[![Crates.io](https://img.shields.io/crates/v/lucide.svg)](https://crates.io/crates/lucide)
+[![Crates.io](https://img.shields.io/crates/v/lucide-rust.svg)](https://crates.io/crates/lucide-rust)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ Features
@@ -21,16 +21,16 @@ Add to your `Cargo.toml`:
 ```toml
 [dependencies]
 # Choose your framework
-lucide = { version = "0.1.0", features = ["leptos"] }
-# lucide = { version = "0.1.0", features = ["yew"] }  
-# lucide = { version = "0.1.0", features = ["dioxus"] }
-# lucide = { version = "0.1.0", features = ["sycamore"] }
+lucide-rust = { version = "0.1.0", features = ["leptos"] }
+# lucide-rust = { version = "0.1.0", features = ["yew"] }  
+# lucide-rust = { version = "0.1.0", features = ["dioxus"] }
+# lucide-rust = { version = "0.1.0", features = ["sycamore"] }
 ```
 
 Use in your components:
 
 ```rust
-use lucide::*;
+use lucide_rust::*;
 
 // Leptos
 view! {
@@ -67,7 +67,7 @@ Include only the icon categories you need:
 
 ```toml
 [dependencies]
-lucide = { 
+lucide-rust = { 
     version = "0.1.0", 
     features = ["leptos", "navigation", "files", "communication"] 
 }
@@ -84,7 +84,7 @@ lucide = {
 | `arrows` | 20+ | Directional indicators |
 | `tools` | 35+ | Settings, edit, search, filter |
 
-[📋 **View All Categories & Icons →**](https://github.com/codegress-com/lucide-rs/main/ICONS.md)
+[📋 **View All Categories & Icons →**](https://github.com/codegress-com/lucide-rust/main/ICONS.md)
 
 ### Meta Features
 
@@ -110,7 +110,7 @@ All icon components support these props:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/codegress-com/lucide-rs/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/codegress-com/lucide-rust/main/LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
