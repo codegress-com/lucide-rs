@@ -12,6 +12,9 @@
 name: ⚙️ Quality Checks
 
 on:
+  # Allow this workflow to be called by other workflows
+  workflow_call:
+  
   pull_request:
     branches: [main]
   # Allow manual triggering for testing

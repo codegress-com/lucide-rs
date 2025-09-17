@@ -1,0 +1,77 @@
+#
+# Dependency Outdated Check Workflow
+#
+# This workflow runs cargo-outdated to check for outdated dependencies
+# in Rust projects. It identifies dependencies that have newer versions
+# available, helping maintain up-to-date dependencies.
+#
+# Triggered: Called by other workflows (workflow_call)
+# Purpose: Identify outdated dependencies that could be updated
+#
+
+name: ⚙️ Dependency Outdated Check
+
+on:
+  # Allow this workflow to be called by other workflows
+  workflow_call:
+    outputs:
+      outdated_found:
+        description: "Whether outdated dependencies were found"
+        value: ${{ jobs.outdated.outputs.outdated_found }}
+
+# Environment variables
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # Check for outdated Rust dependencies
+  outdated:
+    name: Dependency Outdated Check
+    runs-on: ubuntu-latest
+    outputs:
+      outdated_found: ${{ steps.outdated.outputs.outdated }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-outdated
+        run: |
+          echo "Installing cargo-outdated..."
+          cargo install cargo-outdated --locked
+          echo "✅ cargo-outdated installed"
+
+      - name: Run outdated check
+        id: outdated
+        run: |
+          echo "🔍 Checking for outdated dependencies..."
+          
+          # Run cargo outdated and capture output
+          if cargo outdated --format json > outdated-results.json 2>/dev/null; then
+            # Check if any outdated dependencies were found
+            if [ -s outdated-results.json ] && [ "$(cat outdated-results.json)" != "[]" ]; then
+              echo "📦 Outdated dependencies found:"
+              cargo outdated
+              echo ""
+              echo "📋 Detailed results saved to outdated-results.json"
+              echo "outdated=true" >> $GITHUB_OUTPUT
+            else
+              echo "✅ All dependencies are up to date"
+              echo "outdated=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "⚠️ cargo-outdated check encountered an issue"
+            echo "This might be normal if there are no dependencies to check"
+            echo "outdated=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload outdated results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-outdated-results
+          path: outdated-results.json
+          retention-days: 30
