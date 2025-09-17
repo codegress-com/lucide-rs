@@ -27,7 +27,7 @@ pub fn Ligature(props: &LigatureProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

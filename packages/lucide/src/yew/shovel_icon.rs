@@ -27,7 +27,7 @@ pub fn Shovel(props: &ShovelProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

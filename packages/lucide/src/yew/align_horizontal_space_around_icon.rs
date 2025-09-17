@@ -27,7 +27,7 @@ pub fn AlignHorizontalSpaceAround(props: &AlignHorizontalSpaceAroundProps) -> Ht
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

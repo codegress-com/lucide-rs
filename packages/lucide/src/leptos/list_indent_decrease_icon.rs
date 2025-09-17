@@ -16,7 +16,7 @@ pub fn ListIndentDecrease(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

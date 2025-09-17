@@ -16,7 +16,7 @@ pub fn Luggage(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

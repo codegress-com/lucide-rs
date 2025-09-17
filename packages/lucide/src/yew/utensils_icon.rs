@@ -27,7 +27,7 @@ pub fn Utensils(props: &UtensilsProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

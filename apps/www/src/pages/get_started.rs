@@ -1,5 +1,5 @@
-use leptos::prelude::*;
 use crate::components::Layout;
+use leptos::prelude::*;
 
 #[component]
 pub fn GetStarted() -> impl IntoView {
@@ -15,7 +15,8 @@ pub fn GetStarted() -> impl IntoView {
     let code_examples = move || {
         let framework = active_framework.get();
         match framework.as_ref() {
-            "dioxus" => r#"use dioxus::prelude::*;
+            "dioxus" => {
+                r#"use dioxus::prelude::*;
 use lucide_dioxus::Heart;
 
 fn app() -> Element {
@@ -28,8 +29,10 @@ fn app() -> Element {
             p { "Hello from Dioxus!" }
         }
     }
-}"#,
-            "leptos" => r#"use leptos::prelude::*;
+}"#
+            }
+            "leptos" => {
+                r#"use leptos::prelude::*;
 use lucide_leptos::Heart;
 
 #[component]
@@ -43,8 +46,10 @@ fn App() -> impl IntoView {
             <p>"Hello from Leptos!"</p>
         </div>
     }
-}"#,
-            "yew" => r#"use yew::prelude::*;
+}"#
+            }
+            "yew" => {
+                r#"use yew::prelude::*;
 use lucide_yew::Heart;
 
 #[function_component]
@@ -58,8 +63,10 @@ fn App() -> Html {
             <p>{"Hello from Yew!"}</p>
         </div>
     }
-}"#,
-            "sycamore" => r#"use sycamore::prelude::*;
+}"#
+            }
+            "sycamore" => {
+                r#"use sycamore::prelude::*;
 use lucide_sycamore::Heart;
 
 #[component]
@@ -73,18 +80,49 @@ fn App<G: Html>() -> View<G> {
             p { "Hello from Sycamore!" }
         }
     }
-}"#,
+}"#
+            }
             _ => "",
         }
     };
 
     let icon_categories = vec![
-        "Accessibility", "Actions", "Arrows", "Audio", "Brand", "Communication",
-        "Currency", "Database", "Development", "Devices", "Editor", "Files",
-        "Gaming", "Gestures", "Health", "Layout", "Location", "Lucide",
-        "Maps", "Media", "Navigation", "Nature", "Notifications", "Photography",
-        "Security", "Shapes", "Shopping", "Social", "Sports", "System",
-        "Text", "Time", "Transportation", "Travel", "Weather", "Misc"
+        "Accessibility",
+        "Actions",
+        "Arrows",
+        "Audio",
+        "Brand",
+        "Communication",
+        "Currency",
+        "Database",
+        "Development",
+        "Devices",
+        "Editor",
+        "Files",
+        "Gaming",
+        "Gestures",
+        "Health",
+        "Layout",
+        "Location",
+        "Lucide",
+        "Maps",
+        "Media",
+        "Navigation",
+        "Nature",
+        "Notifications",
+        "Photography",
+        "Security",
+        "Shapes",
+        "Shopping",
+        "Social",
+        "Sports",
+        "System",
+        "Text",
+        "Time",
+        "Transportation",
+        "Travel",
+        "Weather",
+        "Misc",
     ];
 
     view! {
@@ -106,14 +144,14 @@ fn App<G: Html>() -> View<G> {
                     <h2 class="text-2xl font-bold text-neutral-800 mb-8 text-center">
                         "Installation"
                     </h2>
-                    
+
                     // Framework tabs
                     <div class="flex justify-center mb-8">
                         <div class="inline-flex rounded-lg border border-neutral-200 bg-neutral-50 p-1">
                             {frameworks.iter().map(|(key, name)| {
                                 let key_str = *key;
                                 let is_active = move || active_framework.get() == key_str;
-                                
+
                                 view! {
                                     <button
                                         class=move || format!(
@@ -156,7 +194,7 @@ fn App<G: Html>() -> View<G> {
                                     </pre>
                                 </div>
                             </div>
-                            
+
                             // With all icons
                             <div>
                                 <h3 class="text-sm font-medium text-neutral-700 mb-3">"With All Icons"</h3>
@@ -204,7 +242,7 @@ fn App<G: Html>() -> View<G> {
                     <p class="text-neutral-600 text-center mb-8">
                         "Browse through our extensive collection of icons organized by categories"
                     </p>
-                    
+
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
                         {icon_categories.into_iter().map(|category| {
                             view! {
@@ -224,15 +262,15 @@ fn App<G: Html>() -> View<G> {
                         "What's Next?"
                     </h2>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a 
-                            href="/icons" 
+                        <a
+                            href="/icons"
                             class="inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-lg transition-colors"
                             style="background: #D34516"
                         >
                             "Browse All Icons"
                         </a>
-                        <a 
-                            href="/docs" 
+                        <a
+                            href="/docs"
                             class="inline-flex items-center justify-center px-6 py-3 border border-neutral-300 text-neutral-700 font-medium rounded-lg hover:bg-neutral-50 transition-colors"
                         >
                             "Read Documentation"

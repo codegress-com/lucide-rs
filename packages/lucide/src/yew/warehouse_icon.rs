@@ -27,7 +27,7 @@ pub fn Warehouse(props: &WarehouseProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

@@ -27,7 +27,7 @@ pub fn Minimize2(props: &Minimize2Props) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

@@ -24,7 +24,7 @@ pub fn Ban(props: BanProps) -> View {
         props.stroke_width
     };
     let class = props.class.unwrap_or_default();
-    
+
     view! {
         svg(
             xmlns="http://www.w3.org/2000/svg",

@@ -7,7 +7,6 @@ use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 
-
 #[derive(Debug)]
 struct SvgIcon {
     name: String,
@@ -54,31 +53,32 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for svg_file in svg_files {
         let filename = svg_file.file_stem().unwrap().to_str().unwrap();
         let svg_content = fs::read_to_string(&svg_file)?;
-        
+
         // Try to read corresponding JSON metadata
         let json_path = svg_file.with_extension("json");
         let categories = if json_path.exists() {
             match fs::read_to_string(&json_path) {
-                Ok(json_content) => {
-                    match serde_json::from_str::<IconMetadata>(&json_content) {
-                        Ok(metadata) => {
-                            for category in &metadata.categories {
-                                all_categories.insert(category.clone());
-                            }
-                            metadata.categories
+                Ok(json_content) => match serde_json::from_str::<IconMetadata>(&json_content) {
+                    Ok(metadata) => {
+                        for category in &metadata.categories {
+                            all_categories.insert(category.clone());
                         }
-                        Err(e) => {
-                            eprintln!("⚠️  Warning: Failed to parse metadata for {}: {}", filename, e);
-                            vec![]
-                        }
+                        metadata.categories
                     }
-                }
+                    Err(e) => {
+                        eprintln!(
+                            "⚠️  Warning: Failed to parse metadata for {}: {}",
+                            filename, e
+                        );
+                        vec![]
+                    }
+                },
                 Err(_) => vec![],
             }
         } else {
             vec![]
         };
-        
+
         match parse_svg(&svg_content, filename, categories) {
             Ok(icon) => {
                 all_icons.push(icon);
@@ -99,7 +99,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Update mod.rs files with category features
     update_mod_files_with_features(&all_icons)?;
-    
+
     // Generate/update Cargo.toml features
     println!("📋 Updating Cargo.toml with category features...");
     update_cargo_features(&all_categories)?;
@@ -109,12 +109,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     generate_icons_documentation(&all_icons, &all_categories)?;
 
     println!("🎉 Generation complete!");
-    println!("📊 Found {} categories: {:?}", all_categories.len(), 
-             all_categories.iter().collect::<Vec<_>>());
+    println!(
+        "📊 Found {} categories: {:?}",
+        all_categories.len(),
+        all_categories.iter().collect::<Vec<_>>()
+    );
     Ok(())
 }
 
-fn parse_svg(content: &str, filename: &str, categories: Vec<String>) -> Result<SvgIcon, Box<dyn std::error::Error>> {
+fn parse_svg(
+    content: &str,
+    filename: &str,
+    categories: Vec<String>,
+) -> Result<SvgIcon, Box<dyn std::error::Error>> {
     let mut reader = Reader::from_str(content);
     let mut paths = Vec::new();
     let mut other_elements = Vec::new();
@@ -125,7 +132,8 @@ fn parse_svg(content: &str, filename: &str, categories: Vec<String>) -> Result<S
             Event::Start(ref e) | Event::Empty(ref e) => {
                 match e.name().as_ref() {
                     b"path" => {
-                        let d = e.attributes()
+                        let d = e
+                            .attributes()
                             .find(|attr| attr.as_ref().map(|a| a.key.as_ref()) == Ok(b"d"))
                             .and_then(|attr| attr.ok())
                             .and_then(|attr| String::from_utf8(attr.value.to_vec()).ok())
@@ -137,14 +145,14 @@ fn parse_svg(content: &str, filename: &str, categories: Vec<String>) -> Result<S
                         // Handle other elements like circle, rect, polyline, etc.
                         let tag_name = String::from_utf8(e.name().as_ref().to_vec())?;
                         let mut attributes = Vec::new();
-                        
+
                         for attr in e.attributes() {
                             let attr = attr?;
                             let key = String::from_utf8(attr.key.as_ref().to_vec())?;
                             let value = String::from_utf8(attr.value.to_vec())?;
                             attributes.push(format!("{}=\"{}\"", key, value));
                         }
-                        
+
                         let element = if attributes.is_empty() {
                             format!("<{} />", tag_name)
                         } else {
@@ -180,14 +188,14 @@ fn to_module_name(name: &str) -> String {
 
 fn generate_dioxus_components(icons: &[SvgIcon]) -> Result<(), Box<dyn std::error::Error>> {
     println!("🔥 Generating Dioxus components...");
-    
+
     for icon in icons {
         let component_name = to_pascal_case(&icon.name);
         let file_name = to_module_name(&icon.name);
-        
+
         let mut content = String::new();
         content.push_str(&format!(
-r#"use dioxus::prelude::*;
+            r#"use dioxus::prelude::*;
 
 #[derive(Clone, PartialEq, Props)]
 pub struct {}Props {{
@@ -226,13 +234,15 @@ pub fn {}(props: {}Props) -> Element {{
             "stroke-width": "{{stroke_width}}",
             "stroke-linecap": "round",
             "stroke-linejoin": "round",
-"#, component_name, component_name, component_name));
+"#,
+            component_name, component_name, component_name
+        ));
 
         // Add path elements
         for path_d in &icon.paths {
             content.push_str(&format!("            path {{ \"d\": \"{}\" }}\n", path_d));
         }
-        
+
         // Add other elements (simplified - you might need more sophisticated parsing)
         for element in &icon.other_elements {
             // Convert HTML-style to Dioxus RSX (this is a simple conversion)
@@ -241,28 +251,29 @@ pub fn {}(props: {}Props) -> Element {{
         }
 
         content.push_str(
-r#"        }
+            r#"        }
     }
 }
-"#);
+"#,
+        );
 
         let file_path = format!("src/dioxus/{}.rs", file_name);
         fs::write(&file_path, content)?;
     }
-    
+
     Ok(())
 }
 
 fn generate_leptos_components(icons: &[SvgIcon]) -> Result<(), Box<dyn std::error::Error>> {
     println!("⚡ Generating Leptos components...");
-    
+
     for icon in icons {
         let component_name = to_pascal_case(&icon.name);
         let file_name = to_module_name(&icon.name);
-        
+
         let mut content = String::new();
         content.push_str(&format!(
-r#"use leptos::{{prelude::*, svg::Svg}};
+            r#"use leptos::{{prelude::*, svg::Svg}};
 
 #[component]
 pub fn {}(
@@ -295,41 +306,44 @@ pub fn {}(
             stroke-linecap="round"
             stroke-linejoin="round"
         >
-"#, component_name));
+"#,
+            component_name
+        ));
 
         // Add path elements
         for path_d in &icon.paths {
             content.push_str(&format!("            <path d=\"{}\" />\n", path_d));
         }
-        
+
         // Add other elements
         for element in &icon.other_elements {
             content.push_str(&format!("            {}\n", element));
         }
 
         content.push_str(
-r#"        </svg>
+            r#"        </svg>
     }
 }
-"#);
+"#,
+        );
 
         let file_path = format!("src/leptos/{}.rs", file_name);
         fs::write(&file_path, content)?;
     }
-    
+
     Ok(())
 }
 
 fn generate_yew_components(icons: &[SvgIcon]) -> Result<(), Box<dyn std::error::Error>> {
     println!("🕷️  Generating Yew components...");
-    
+
     for icon in icons {
         let component_name = to_pascal_case(&icon.name);
         let file_name = to_module_name(&icon.name);
-        
+
         let mut content = String::new();
         content.push_str(&format!(
-r#"use yew::prelude::*;
+            r#"use yew::prelude::*;
 
 #[derive(PartialEq, Properties)]
 pub struct {}Props {{
@@ -374,41 +388,44 @@ pub fn {}(props: &{}Props) -> Html {{
             stroke-linecap="round"
             stroke-linejoin="round"
         >
-"#, component_name, component_name, component_name));
+"#,
+            component_name, component_name, component_name
+        ));
 
         // Add path elements
         for path_d in &icon.paths {
             content.push_str(&format!("            <path d=\"{}\" />\n", path_d));
         }
-        
+
         // Add other elements
         for element in &icon.other_elements {
             content.push_str(&format!("            {}\n", element));
         }
 
         content.push_str(
-r#"        </svg>
+            r#"        </svg>
     }
 }
-"#);
+"#,
+        );
 
         let file_path = format!("src/yew/{}.rs", file_name);
         fs::write(&file_path, content)?;
     }
-    
+
     Ok(())
 }
 
 fn generate_sycamore_components(icons: &[SvgIcon]) -> Result<(), Box<dyn std::error::Error>> {
     println!("🌸 Generating Sycamore components...");
-    
+
     for icon in icons {
         let component_name = to_pascal_case(&icon.name);
         let file_name = to_module_name(&icon.name);
-        
+
         let mut content = String::new();
         content.push_str(&format!(
-r#"use sycamore::prelude::*;
+            r#"use sycamore::prelude::*;
 
 #[derive(Props)]
 pub struct {}Props {{
@@ -448,13 +465,15 @@ pub fn {}(props: {}Props) -> View {{
             "stroke-linecap"="round",
             "stroke-linejoin"="round",
         ) {{
-"#, component_name, component_name, component_name));
+"#,
+            component_name, component_name, component_name
+        ));
 
         // Add path elements
         for path_d in &icon.paths {
             content.push_str(&format!("            path(d=\"{}\")\n", path_d));
         }
-        
+
         // Add other elements (convert to Sycamore syntax)
         for element in &icon.other_elements {
             let sycamore_element = convert_html_to_sycamore_syntax(element);
@@ -462,35 +481,36 @@ pub fn {}(props: {}Props) -> View {{
         }
 
         content.push_str(
-r#"        }
+            r#"        }
     }
 }
-"#);
+"#,
+        );
 
         let file_path = format!("src/sycamore/{}.rs", file_name);
         fs::write(&file_path, content)?;
     }
-    
+
     Ok(())
 }
 
 fn update_mod_files(icons: &[SvgIcon]) -> Result<(), Box<dyn std::error::Error>> {
     println!("📝 Updating mod.rs files...");
-    
+
     let frameworks = ["dioxus", "leptos", "yew", "sycamore"];
-    
+
     for framework in &frameworks {
         let mod_path = format!("src/{}/mod.rs", framework);
         let mut mod_content = String::new();
-        
+
         for icon in icons {
             let file_name = to_module_name(&icon.name);
             mod_content.push_str(&format!("pub mod {};\n", file_name));
         }
-        
+
         fs::write(&mod_path, mod_content)?
     }
-    
+
     Ok(())
 }
 
@@ -503,7 +523,7 @@ fn convert_html_to_dioxus_rsx(html: &str) -> String {
             return format!("polyline {{ points: \"{}\" }}", points);
         }
     }
-    
+
     if html.contains("polygon") {
         let re = Regex::new(r#"points="([^"]+)""#).unwrap();
         if let Some(captures) = re.captures(html) {
@@ -511,7 +531,7 @@ fn convert_html_to_dioxus_rsx(html: &str) -> String {
             return format!("polygon {{ points: \"{}\" }}", points);
         }
     }
-    
+
     if html.contains("circle") {
         let mut attrs = Vec::new();
         if let Some(cx) = extract_attr(html, "cx") {
@@ -525,7 +545,7 @@ fn convert_html_to_dioxus_rsx(html: &str) -> String {
         }
         return format!("circle {{ {} }}", attrs.join(", "));
     }
-    
+
     if html.contains("ellipse") {
         let mut attrs = Vec::new();
         if let Some(cx) = extract_attr(html, "cx") {
@@ -542,7 +562,7 @@ fn convert_html_to_dioxus_rsx(html: &str) -> String {
         }
         return format!("ellipse {{ {} }}", attrs.join(", "));
     }
-    
+
     if html.contains("rect") {
         let mut attrs = Vec::new();
         if let Some(x) = extract_attr(html, "x") {
@@ -559,7 +579,7 @@ fn convert_html_to_dioxus_rsx(html: &str) -> String {
         }
         return format!("rect {{ {} }}", attrs.join(", "));
     }
-    
+
     if html.contains("line") {
         let mut attrs = Vec::new();
         if let Some(x1) = extract_attr(html, "x1") {
@@ -576,7 +596,7 @@ fn convert_html_to_dioxus_rsx(html: &str) -> String {
         }
         return format!("line {{ {} }}", attrs.join(", "));
     }
-    
+
     // Default fallback
     html.to_string()
 }
@@ -591,7 +611,7 @@ fn convert_html_to_sycamore_syntax(html: &str) -> String {
             return format!("polyline(points=\"{}\")", points);
         }
     }
-    
+
     if html.contains("polygon") {
         let re = Regex::new(r#"points="([^"]+)""#).unwrap();
         if let Some(captures) = re.captures(html) {
@@ -599,7 +619,7 @@ fn convert_html_to_sycamore_syntax(html: &str) -> String {
             return format!("polygon(points=\"{}\")", points);
         }
     }
-    
+
     if html.contains("circle") {
         // Extract circle attributes
         let mut attrs = Vec::new();
@@ -614,7 +634,7 @@ fn convert_html_to_sycamore_syntax(html: &str) -> String {
         }
         return format!("circle({})", attrs.join(", "));
     }
-    
+
     if html.contains("ellipse") {
         // Extract ellipse attributes
         let mut attrs = Vec::new();
@@ -632,7 +652,7 @@ fn convert_html_to_sycamore_syntax(html: &str) -> String {
         }
         return format!("ellipse({})", attrs.join(", "));
     }
-    
+
     if html.contains("rect") {
         // Extract rect attributes
         let mut attrs = Vec::new();
@@ -650,7 +670,7 @@ fn convert_html_to_sycamore_syntax(html: &str) -> String {
         }
         return format!("rect({})", attrs.join(", "));
     }
-    
+
     if html.contains("line") {
         let mut attrs = Vec::new();
         if let Some(x1) = extract_attr(html, "x1") {
@@ -667,7 +687,7 @@ fn convert_html_to_sycamore_syntax(html: &str) -> String {
         }
         return format!("line({})", attrs.join(", "));
     }
-    
+
     // Default fallback
     html.to_string()
 }
@@ -680,12 +700,12 @@ fn extract_attr(html: &str, attr_name: &str) -> Option<String> {
 fn update_cargo_features(categories: &HashSet<String>) -> Result<(), Box<dyn std::error::Error>> {
     let cargo_path = "Cargo.toml";
     let content = fs::read_to_string(cargo_path)?;
-    
+
     // Find the [features] section and replace it
     let mut lines: Vec<&str> = content.lines().collect();
     let mut features_start = None;
     let mut features_end = None;
-    
+
     for (i, line) in lines.iter().enumerate() {
         if line.trim() == "[features]" {
             features_start = Some(i);
@@ -694,10 +714,10 @@ fn update_cargo_features(categories: &HashSet<String>) -> Result<(), Box<dyn std
             break;
         }
     }
-    
+
     if let Some(start) = features_start {
         let end = features_end.unwrap_or(lines.len());
-        
+
         // Build new features section as string
         let mut features_content = String::new();
         features_content.push_str("[features]\n");
@@ -711,19 +731,19 @@ fn update_cargo_features(categories: &HashSet<String>) -> Result<(), Box<dyn std
         features_content.push_str("codegen = [\"dep:quick-xml\", \"dep:regex\", \"dep:convert_case\", \"dep:serde\", \"dep:serde_json\"]\n");
         features_content.push_str("\n");
         features_content.push_str("# Icon category features for bundle size optimization\n");
-        
+
         // Add category features
         let mut sorted_categories: Vec<&String> = categories.iter().collect();
         sorted_categories.sort();
-        
+
         for category in &sorted_categories {
             features_content.push_str(&format!("{} = []\n", category));
         }
-        
+
         features_content.push_str("\n");
         features_content.push_str("# Meta features\n");
         features_content.push_str("all-icons = [\n");
-        
+
         // Add all categories to all-icons feature
         for (i, category) in sorted_categories.iter().enumerate() {
             if i == sorted_categories.len() - 1 {
@@ -732,41 +752,50 @@ fn update_cargo_features(categories: &HashSet<String>) -> Result<(), Box<dyn std
                 features_content.push_str(&format!("    \"{}\",\n", category));
             }
         }
-        
+
         features_content.push_str("]\n");
         features_content.push_str("\n");
         features_content.push_str("# Common combinations for convenience\n");
-        features_content.push_str("essentials = [\"arrows\", \"navigation\", \"files\", \"communication\"]\n");
+        features_content
+            .push_str("essentials = [\"arrows\", \"navigation\", \"files\", \"communication\"]\n");
         features_content.push_str("web-app = [\"arrows\", \"navigation\", \"files\", \"communication\", \"layout\", \"notifications\"]\n");
         features_content.push_str("mobile-app = [\"arrows\", \"navigation\", \"communication\", \"multimedia\", \"account\"]\n\n");
-        
+
         // Replace the features section in content
         let before_features = lines[..start].join("\n");
         let after_features = lines[end..].join("\n");
-        let new_content = format!("{}\n{}\n{}", before_features, features_content.trim_end(), after_features);
-        
+        let new_content = format!(
+            "{}\n{}\n{}",
+            before_features,
+            features_content.trim_end(),
+            after_features
+        );
+
         fs::write(cargo_path, new_content)?;
-        
-        println!("✅ Updated Cargo.toml with {} category features", categories.len());
+
+        println!(
+            "✅ Updated Cargo.toml with {} category features",
+            categories.len()
+        );
     }
-    
+
     Ok(())
 }
 
 fn update_mod_files_with_features(icons: &[SvgIcon]) -> Result<(), Box<dyn std::error::Error>> {
     println!("📝 Updating mod.rs files with conditional compilation...");
-    
+
     let frameworks = ["dioxus", "leptos", "yew", "sycamore"];
-    
+
     for framework in &frameworks {
         let mod_path = format!("src/{}/mod.rs", framework);
         let mut mod_content = String::new();
-        
+
         // Build a map of icon name -> all categories it belongs to
         let mut icon_to_categories: HashMap<String, Vec<String>> = HashMap::new();
         let mut all_categories: HashSet<String> = HashSet::new();
         let mut uncategorized_icons = Vec::new();
-        
+
         for icon in icons {
             let icon_name = icon.name.clone();
             if icon.categories.is_empty() {
@@ -774,19 +803,19 @@ fn update_mod_files_with_features(icons: &[SvgIcon]) -> Result<(), Box<dyn std::
             } else {
                 // Store all categories for this icon
                 icon_to_categories.insert(icon_name.clone(), icon.categories.clone());
-                
+
                 // Collect all unique categories
                 for category in &icon.categories {
                     all_categories.insert(category.clone());
                 }
             }
         }
-        
+
         // Get all icons (no duplicates)
         let mut all_icon_names: HashSet<String> = icon_to_categories.keys().cloned().collect();
         let mut sorted_icon_names: Vec<String> = all_icon_names.into_iter().collect();
         sorted_icon_names.sort();
-        
+
         // Generate each icon with cfg attributes for all its categories
         for icon_name in sorted_icon_names {
             let file_name = to_module_name(&icon_name);
@@ -797,13 +826,13 @@ fn update_mod_files_with_features(icons: &[SvgIcon]) -> Result<(), Box<dyn std::
                     cfg_features.push(format!("feature = \"{}\"", category));
                 }
                 cfg_features.push("feature = \"all-icons\"".to_string());
-                
+
                 let cfg_attr = format!("#[cfg(any({}))]\n", cfg_features.join(", "));
                 mod_content.push_str(&cfg_attr);
                 mod_content.push_str(&format!("pub mod {};\n", file_name));
             }
         }
-        
+
         // Add uncategorized icons (always available)
         if !uncategorized_icons.is_empty() {
             mod_content.push_str("\n// Uncategorized icons (always available)\n");
@@ -812,33 +841,39 @@ fn update_mod_files_with_features(icons: &[SvgIcon]) -> Result<(), Box<dyn std::
                 mod_content.push_str(&format!("pub mod {};\n", file_name));
             }
         }
-        
+
         fs::write(&mod_path, mod_content)?
     }
-    
+
     Ok(())
 }
 
-fn generate_icons_documentation(icons: &[SvgIcon], categories: &HashSet<String>) -> Result<(), Box<dyn std::error::Error>> {
+fn generate_icons_documentation(
+    icons: &[SvgIcon],
+    categories: &HashSet<String>,
+) -> Result<(), Box<dyn std::error::Error>> {
     let mut content = String::new();
-    
+
     // Header
     content.push_str("# 🎨 Lucide Icons Reference\n\n");
     content.push_str(&format!("This document lists all {} available icons in the Lucide Rust library, organized by category.\n\n", icons.len()));
-    
+
     // Table of contents
     content.push_str("## 📚 Table of Contents\n\n");
-    
+
     let mut sorted_categories: Vec<&String> = categories.iter().collect();
     sorted_categories.sort();
-    
+
     for category in &sorted_categories {
         let category_title = category.replace('-', " ").to_case(Case::Title);
         let anchor = category.to_lowercase().replace(' ', "-");
-        content.push_str(&format!("- [{}](#{})\
-", category_title, anchor));
+        content.push_str(&format!(
+            "- [{}](#{})\
+",
+            category_title, anchor
+        ));
     }
-    
+
     // Usage section
     content.push_str("\n## 🚀 Usage\n\n");
     content.push_str("### Basic Usage\n\n");
@@ -847,7 +882,7 @@ fn generate_icons_documentation(icons: &[SvgIcon], categories: &HashSet<String>)
     content.push_str("// In your component\n");
     content.push_str("<Home class=\"w-6 h-6\" />\n");
     content.push_str("```\n\n");
-    
+
     content.push_str("### With Specific Framework\n\n");
     content.push_str("Add to your `Cargo.toml`:\n\n");
     content.push_str("```toml\n");
@@ -857,90 +892,114 @@ fn generate_icons_documentation(icons: &[SvgIcon], categories: &HashSet<String>)
     content.push_str("lucide = { version = \"0.1.0\", features = [\"dioxus\"] }\n");
     content.push_str("lucide = { version = \"0.1.0\", features = [\"sycamore\"] }\n\n");
     content.push_str("# With specific icon categories (for smaller bundle size)\n");
-    content.push_str("lucide = { version = \"0.1.0\", features = [\"leptos\", \"navigation\", \"files\"] }\n\n");
+    content.push_str(
+        "lucide = { version = \"0.1.0\", features = [\"leptos\", \"navigation\", \"files\"] }\n\n",
+    );
     content.push_str("# Or include all icons with:\n");
     content.push_str("lucide = { version = \"0.1.0\", features = [\"leptos\", \"all-icons\"] }\n");
     content.push_str("```\n\n");
     // Icons by category
     content.push_str("## 🗂️ Icons by Category\n\n");
-    
+
     // Group icons by category
     let mut category_icons: HashMap<String, Vec<&SvgIcon>> = HashMap::new();
     let mut uncategorized_icons = Vec::new();
-    
+
     for icon in icons {
         if icon.categories.is_empty() {
             uncategorized_icons.push(icon);
         } else {
             for category in &icon.categories {
-                category_icons.entry(category.clone()).or_insert_with(Vec::new).push(icon);
+                category_icons
+                    .entry(category.clone())
+                    .or_insert_with(Vec::new)
+                    .push(icon);
             }
         }
     }
-    
+
     // Sort and display each category
     for category in &sorted_categories {
         if let Some(icons_in_category) = category_icons.get(*category) {
             let category_title = category.replace('-', " ").to_case(Case::Title);
             content.push_str(&format!("### {}\n\n", category_title));
-            content.push_str(&format!("`{}` and `all-icons` features - {} icons\n\n", category, icons_in_category.len()));
-            
+            content.push_str(&format!(
+                "`{}` and `all-icons` features - {} icons\n\n",
+                category,
+                icons_in_category.len()
+            ));
+
             // Create a table of icons in this category
             content.push_str("| Icon | Name | Component |\n");
             content.push_str("|------|------|-----------|\n");
-            
+
             let mut sorted_icons = icons_in_category.clone();
             sorted_icons.sort_by(|a, b| a.name.cmp(&b.name));
-            
+
             for icon in &sorted_icons {
                 let component_name = to_pascal_case(&icon.name);
-                let icon_preview = format!("[{}](https://lucide.dev/icons/{})", icon.name, icon.name);
-                content.push_str(&format!("| {} | `{}` | `<{} />` |\n", icon_preview, icon.name, component_name));
+                let icon_preview =
+                    format!("[{}](https://lucide.dev/icons/{})", icon.name, icon.name);
+                content.push_str(&format!(
+                    "| {} | `{}` | `<{} />` |\n",
+                    icon_preview, icon.name, component_name
+                ));
             }
-            
+
             content.push_str("\n");
-            
+
             // Usage example for this category
             if let Some(first_icon) = sorted_icons.first() {
                 let component_name = to_pascal_case(&first_icon.name);
                 content.push_str(&format!("**Usage example:**\n\n"));
                 content.push_str("```rust\n");
                 content.push_str(&format!("// Add to Cargo.toml: features = [\"leptos\", \"{}\"] or [\"leptos\", \"all-icons\"]\n", category));
-                content.push_str(&format!("<{} class=\"w-6 h-6 text-gray-600\" />\n", component_name));
+                content.push_str(&format!(
+                    "<{} class=\"w-6 h-6 text-gray-600\" />\n",
+                    component_name
+                ));
                 content.push_str("```\n\n");
             }
         }
     }
-    
+
     // Add uncategorized icons if any
     if !uncategorized_icons.is_empty() {
         content.push_str("### Uncategorized\n\n");
         content.push_str(&format!("{} icons\n\n", uncategorized_icons.len()));
-        
+
         content.push_str("| Icon | Name | Component |\n");
         content.push_str("|------|------|-----------|\n");
-        
+
         uncategorized_icons.sort_by(|a, b| a.name.cmp(&b.name));
-        
+
         for icon in uncategorized_icons {
             let component_name = to_pascal_case(&icon.name);
             let icon_preview = format!("[{}](https://lucide.dev/icons/{})", icon.name, icon.name);
-            content.push_str(&format!("| {} | `{}` | `<{} />` |\n", icon_preview, icon.name, component_name));
+            content.push_str(&format!(
+                "| {} | `{}` | `<{} />` |\n",
+                icon_preview, icon.name, component_name
+            ));
         }
-        
+
         content.push_str("\n");
     }
-    
+
     // Footer
     content.push_str("---\n\n");
     content.push_str("*This file is automatically generated by the `generate-icons` script.*\n");
-    
+
     // Write to repository root directory
     let manifest_dir = std::env::var("CARGO_MANIFEST_DIR").unwrap_or_else(|_| "".to_string());
     let root_path = Path::new(&manifest_dir).join("../../ICONS.md");
     fs::write(&root_path, content)?;
-    
-    println!("✅ Generated ICONS.md at {} with {} icons across {} categories", root_path.display(), icons.len(), categories.len());
-    
+
+    println!(
+        "✅ Generated ICONS.md at {} with {} icons across {} categories",
+        root_path.display(),
+        icons.len(),
+        categories.len()
+    );
+
     Ok(())
 }

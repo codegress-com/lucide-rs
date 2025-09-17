@@ -1,10 +1,10 @@
-use leptos::prelude::*;
 use crate::components::Layout;
+use leptos::prelude::*;
 
 #[component]
 pub fn HomePage() -> impl IntoView {
     let (active_framework, set_active_framework) = signal(String::from("leptos"));
-    
+
     let frameworks = vec![
         ("dioxus", "Dioxus"),
         ("leptos", "Leptos"),
@@ -15,7 +15,8 @@ pub fn HomePage() -> impl IntoView {
     let usage_examples = move || {
         let framework = active_framework.get();
         match framework.as_ref() {
-            "dioxus" => "use dioxus::prelude::*;
+            "dioxus" => {
+                "use dioxus::prelude::*;
 use lucide_dioxus::Heart;
 
 fn app() -> Element {
@@ -27,8 +28,10 @@ fn app() -> Element {
             }
         }
     }
-}",
-            "leptos" => "use leptos::prelude::*;
+}"
+            }
+            "leptos" => {
+                "use leptos::prelude::*;
 use lucide_leptos::Heart;
 
 #[component]
@@ -36,8 +39,10 @@ pub fn App() -> impl IntoView {
     view! {
         <Heart size=24 color=\"currentColor\" />
     }
-}",
-            "yew" => "use yew::prelude::*;
+}"
+            }
+            "yew" => {
+                "use yew::prelude::*;
 use lucide_yew::Heart;
 
 #[function_component]
@@ -45,8 +50,10 @@ fn App() -> Html {
     html! {
         <Heart size=24 color=\"currentColor\" />
     }
-}",
-            "sycamore" => "use sycamore::prelude::*;
+}"
+            }
+            "sycamore" => {
+                "use sycamore::prelude::*;
 use lucide_sycamore::Heart;
 
 #[component]
@@ -54,7 +61,8 @@ fn App<G: Html>() -> View<G> {
     view! {
         Heart(size = 24, color = \"currentColor\")
     }
-}",
+}"
+            }
             _ => "",
         }
     };
@@ -63,7 +71,7 @@ fn App<G: Html>() -> View<G> {
             <section class="bg-white relative overflow-hidden">
                 // Subtle background pattern
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(211,69,22,0.05),transparent_40%),radial-gradient(circle_at_70%_60%,rgba(211,69,22,0.03),transparent_40%)]" />
-                
+
                 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
                     <div class="text-center">
                         <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium mb-8" style="background: rgba(211,69,22,0.1); color: #D34516">
@@ -73,21 +81,21 @@ fn App<G: Html>() -> View<G> {
                             <span>"Lucide Rust"</span>
                             <span class="px-2 py-1 rounded-full text-xs" style="background: #D34516; color: white">"80+ icons"</span>
                         </div>
-                        
+
                         <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-800 mb-8 leading-tight">
                             "Beautiful & consistent"
                             <br/>
                             <span style="color: #D34516">"icons"</span>
                         </h1>
-                        
+
                         <p class="text-xl text-neutral-600 max-w-3xl mx-auto mb-12 leading-relaxed">
                             "Beautiful Lucide icons as native Rust components for modern web frameworks. "
                             "Tree-shakeable, customizable, and developer-friendly."
                         </p>
-                        
+
                         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
-                            <a 
-                                href="/icons" 
+                            <a
+                                href="/icons"
                                 class="inline-flex items-center space-x-2 px-8 py-4 rounded-xl font-semibold text-white transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
                                 style="background: linear-gradient(135deg, #D34516 0%, #be3e14 100%)"
                             >
@@ -99,9 +107,9 @@ fn App<G: Html>() -> View<G> {
                                 </svg>
                                 <span>"View all icons"</span>
                             </a>
-                            
-                            <a 
-                                href="/get-started" 
+
+                            <a
+                                href="/get-started"
                                 class="inline-flex items-center space-x-2 px-8 py-4 bg-neutral-50 hover:bg-neutral-100 border border-neutral-200 text-neutral-700 hover:text-neutral-900 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg hover:border-neutral-300"
                             >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -112,7 +120,7 @@ fn App<G: Html>() -> View<G> {
                                 <span>"Get Started"</span>
                             </a>
                         </div>
-                        
+
                         // Show some example icons
                         <div class="flex justify-center items-center space-x-8 opacity-60">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D34516" stroke-width="2">
@@ -144,7 +152,7 @@ fn App<G: Html>() -> View<G> {
                         <h2 class="text-4xl font-bold text-neutral-800 mb-4">"Why Lucide Rust?"</h2>
                         <p class="text-xl text-neutral-600 max-w-2xl mx-auto">"The perfect icon library for Rust web applications"</p>
                     </div>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
                         <div class="text-center group">
                             <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-transform duration-200 group-hover:scale-110" style="background: rgba(211,69,22,0.1)">
@@ -155,7 +163,7 @@ fn App<G: Html>() -> View<G> {
                             <h3 class="text-2xl font-bold text-neutral-800 mb-3">"Lightweight & Scalable"</h3>
                             <p class="text-neutral-600 leading-relaxed">"Icons are lightweight, highly optimized scalable vector graphics (SVG). Perfect for modern web applications."</p>
                         </div>
-                        
+
                         <div class="text-center group">
                             <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-transform duration-200 group-hover:scale-110" style="background: rgba(211,69,22,0.1)">
                                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D34516" stroke-width="2">
@@ -165,7 +173,7 @@ fn App<G: Html>() -> View<G> {
                             <h3 class="text-2xl font-bold text-neutral-800 mb-3">"Clean & Consistent"</h3>
                             <p class="text-neutral-600 leading-relaxed">"Designed with a strict set of design rules for consistency in style and readability across all icons."</p>
                         </div>
-                        
+
                         <div class="text-center group">
                             <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-transform duration-200 group-hover:scale-110" style="background: rgba(211,69,22,0.1)">
                                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D34516" stroke-width="2">
@@ -176,19 +184,19 @@ fn App<G: Html>() -> View<G> {
                             <p class="text-neutral-600 leading-relaxed">"Customize the color, size, stroke width, and more with simple props. Perfect for any design system."</p>
                         </div>
                     </div>
-                    
+
                     // Framework examples with tabs
                     <div class="max-w-4xl mx-auto">
                         <h2 class="text-3xl font-bold text-neutral-800 mb-6 text-center">"Choose Your Framework"</h2>
                         <p class="text-neutral-600 mb-8 text-center">"Get started with your favorite Rust web framework"</p>
-                        
+
                         // Framework tabs
                         <div class="flex justify-center mb-8">
                             <div class="inline-flex rounded-lg border border-neutral-200 bg-neutral-50 p-1">
                                 {frameworks.iter().map(|(key, name)| {
                                     let key_str = *key;
                                     let is_active = move || active_framework.get() == key_str;
-                                    
+
                                     view! {
                                         <button
                                             class=move || format!(
@@ -212,7 +220,7 @@ fn App<G: Html>() -> View<G> {
                                 }).collect::<Vec<_>>()}
                             </div>
                         </div>
-                        
+
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <h3 class="text-xl font-semibold text-neutral-800 mb-4">"Installation"</h3>
@@ -245,4 +253,3 @@ fn App<G: Html>() -> View<G> {
         </Layout>
     }
 }
-

@@ -16,7 +16,7 @@ pub fn Grid2X2Plus(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

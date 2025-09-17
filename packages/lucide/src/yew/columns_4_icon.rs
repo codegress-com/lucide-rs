@@ -27,7 +27,7 @@ pub fn Columns4(props: &Columns4Props) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

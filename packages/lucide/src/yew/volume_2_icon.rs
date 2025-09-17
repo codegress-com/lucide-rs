@@ -27,7 +27,7 @@ pub fn Volume2(props: &Volume2Props) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

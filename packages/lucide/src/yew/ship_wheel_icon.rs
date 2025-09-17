@@ -27,7 +27,7 @@ pub fn ShipWheel(props: &ShipWheelProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

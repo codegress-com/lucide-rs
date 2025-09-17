@@ -27,7 +27,7 @@ pub fn Building2(props: &Building2Props) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

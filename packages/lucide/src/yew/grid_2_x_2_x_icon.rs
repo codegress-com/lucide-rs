@@ -27,7 +27,7 @@ pub fn Grid2X2X(props: &Grid2X2XProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

@@ -27,7 +27,7 @@ pub fn Spotlight(props: &SpotlightProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

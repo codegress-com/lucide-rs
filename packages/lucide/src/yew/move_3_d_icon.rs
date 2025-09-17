@@ -27,7 +27,7 @@ pub fn Move3D(props: &Move3DProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

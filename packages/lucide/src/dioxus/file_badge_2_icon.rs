@@ -23,7 +23,7 @@ pub fn FileBadge2(props: FileBadge2Props) -> Element {
     } else {
         props.stroke_width
     };
-    
+
     rsx! {
         svg {
             "xmlns": "http://www.w3.org/2000/svg",

@@ -280,7 +280,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["sky", "storage", "weather"],
         svg_path: "M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"
     },
-    
+
     // More Navigation Icons
     IconInfo {
         name: "chevron-up",
@@ -338,7 +338,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["dots", "menu", "options"],
         svg_path: "M12 5h.01 M12 12h.01 M12 19h.01"
     },
-    
+
     // Additional Actions
     IconInfo {
         name: "bookmark",
@@ -375,7 +375,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["open", "unlocked", "access"],
         svg_path: "M7 11V7a5 5 0 0 1 9.9-1M7 11h10v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8Z"
     },
-    
+
     // Technology & Devices
     IconInfo {
         name: "smartphone",
@@ -405,7 +405,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["ipad", "device", "touch"],
         svg_path: "M19 2H5a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"
     },
-    
+
     // Social & Communication
     IconInfo {
         name: "wifi",
@@ -421,7 +421,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["wireless", "connection", "device"],
         svg_path: "m7 7 10 5-5 5V2l5 5L7 17"
     },
-    
+
     // Text & Content
     IconInfo {
         name: "type",
@@ -451,7 +451,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["format", "text", "decoration"],
         svg_path: "M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3M4 21h16"
     },
-    
+
     // Layout & Design
     IconInfo {
         name: "align-left",
@@ -488,7 +488,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["layout", "structure", "vertical"],
         svg_path: "M12 3h7a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-7m0-18H5a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h7m0-18v18"
     },
-    
+
     // Status & Alerts
     IconInfo {
         name: "check",
@@ -525,7 +525,7 @@ pub const ICONS: &[IconInfo] = &[
         tags: &["information", "help", "details"],
         svg_path: "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z M12 16v-4 M12 8h.01"
     },
-    
+
     // Arrows & Movement
     IconInfo {
         name: "arrow-up",
@@ -558,7 +558,10 @@ pub const ICONS: &[IconInfo] = &[
 ];
 
 pub fn get_icons_by_category(category: &str) -> Vec<&'static IconInfo> {
-    ICONS.iter().filter(|icon| icon.category == category).collect()
+    ICONS
+        .iter()
+        .filter(|icon| icon.category == category)
+        .collect()
 }
 
 pub fn search_icons(query: &str) -> Vec<&'static IconInfo> {
@@ -566,12 +569,15 @@ pub fn search_icons(query: &str) -> Vec<&'static IconInfo> {
     if query.is_empty() {
         return ICONS.iter().collect();
     }
-    
-    ICONS.iter().filter(|icon| {
-        icon.name.contains(&query) ||
-        icon.display_name.to_lowercase().contains(&query) ||
-        icon.tags.iter().any(|tag| tag.contains(&query))
-    }).collect()
+
+    ICONS
+        .iter()
+        .filter(|icon| {
+            icon.name.contains(&query)
+                || icon.display_name.to_lowercase().contains(&query)
+                || icon.tags.iter().any(|tag| tag.contains(&query))
+        })
+        .collect()
 }
 
 pub fn get_categories() -> Vec<&'static str> {

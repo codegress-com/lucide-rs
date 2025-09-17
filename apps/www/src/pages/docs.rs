@@ -1,6 +1,6 @@
+use crate::components::{CodeBlock, Layout};
 use leptos::prelude::*;
 use leptos_router::components::A;
-use crate::components::{Layout, CodeBlock};
 
 #[component]
 pub fn DocsPage() -> impl IntoView {
@@ -14,37 +14,37 @@ pub fn DocsPage() -> impl IntoView {
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <DocCard 
+                        <DocCard
                             title="Installation"
                             description="Get started with Lucide Rust in your project"
                             href="/docs/installation"
                             logo_url="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D34516' stroke-width='2'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><path d='M7 10l5 5 5-5'/><path d='M12 15V3'/></svg>"
                         />
-                        <DocCard 
+                        <DocCard
                             title="Dioxus"
                             description="Using Lucide icons in Dioxus applications"
                             href="/docs/dioxus"
                             logo_url="/assets/logos/dioxus.png"
                         />
-                        <DocCard 
+                        <DocCard
                             title="Leptos"
                             description="Integrating icons in Leptos projects"
                             href="/docs/leptos"
                             logo_url="/assets/logos/leptos.svg"
                         />
-                        <DocCard 
+                        <DocCard
                             title="Yew"
                             description="Adding icons to your Yew applications"
                             href="/docs/yew"
                             logo_url="/assets/logos/yew.png"
                         />
-                        <DocCard 
+                        <DocCard
                             title="Sycamore"
                             description="Using icons with the Sycamore framework"
                             href="/docs/sycamore"
                             logo_url="/assets/logos/sycamore.svg"
                         />
-                        <DocCard 
+                        <DocCard
                             title="Icon Library"
                             description="Browse all available icons"
                             href="/icons"
@@ -69,7 +69,7 @@ fn DocCard(
             <div class="group block bg-gray-50 hover:bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200 p-8 h-full transform hover:-translate-y-1" style="hover:border-color: #D34516">
                 <div class="mb-6">
                     <div class="w-12 h-12 bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 p-2 flex items-center justify-center">
-                        <img 
+                        <img
                             src=logo_url
                             alt=format!("{} logo", title)
                             class="w-full h-full object-contain"
@@ -78,7 +78,7 @@ fn DocCard(
                 </div>
                 <h3 class="text-2xl font-bold text-neutral-800 mb-3 group-hover:" style="group-hover:color: #D34516">{title}</h3>
                 <p class="text-neutral-600 leading-relaxed">{description}</p>
-                
+
                 // Arrow icon
                 <div class="mt-6 flex items-center text-neutral-400 group-hover:text-[#D34516] transition-colors">
                     <span class="text-sm font-medium mr-2">"Learn more"</span>
@@ -94,83 +94,83 @@ fn DocCard(
 #[component]
 pub fn InstallationPage() -> impl IntoView {
     view! {
-        <Layout>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h1 class="text-4xl font-bold text-gray-900 mb-8">"Installation"</h1>
-                
-                <div class="space-y-8">
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Add to your project"</h2>
-                        <p class="text-gray-600 mb-4">"Add Lucide Rust to your Cargo.toml:"</p>
-                        <CodeBlock 
-                            language="toml" 
-                            show_copy=true 
-code="[dependencies]
-lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"leptos\", \"essentials\"] }"
-                        />
-                    </section>
+            <Layout>
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-8">"Installation"</h1>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Feature flags"</h2>
-                        <p class="text-gray-600 mb-4">"Enable the features you need:"</p>
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                            <h3 class="font-semibold text-blue-900 mb-2">"Framework features"</h3>
-                            <ul class="text-blue-800 text-sm space-y-1">
-                                <li>"• leptos - Enable Leptos components"</li>
-                                <li>"• dioxus - Enable Dioxus components"</li>
-                                <li>"• yew - Enable Yew components"</li>
-                                <li>"• sycamore - Enable Sycamore components"</li>
-                            </ul>
-                        </div>
-                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                            <h3 class="font-semibold text-green-900 mb-2">"Icon category features"</h3>
-                            <ul class="text-green-800 text-sm space-y-1">
-                                <li>"• all-icons - Include all icons (large bundle)"</li>
-                                <li>"• essentials - Common icons (arrows, navigation, etc.)"</li>
-                                <li>"• web-app - Icons for web applications"</li>
-                                <li>"• mobile-app - Icons for mobile apps"</li>
-                            </ul>
-                        </div>
-                    </section>
+                    <div class="space-y-8">
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Add to your project"</h2>
+                            <p class="text-gray-600 mb-4">"Add Lucide Rust to your Cargo.toml:"</p>
+                            <CodeBlock
+                                language="toml"
+                                show_copy=true
+    code="[dependencies]
+    lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"leptos\", \"essentials\"] }"
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Next steps"</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <A href="/docs/leptos">
-                                <div class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                    <h3 class="font-semibold text-gray-900 mb-1">"Leptos Guide"</h3>
-                                    <p class="text-sm text-gray-600">"Learn how to use icons in Leptos"</p>
-                                </div>
-                            </A>
-                            <A href="/icons">
-                                <div class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                    <h3 class="font-semibold text-gray-900 mb-1">"Browse Icons"</h3>
-                                    <p class="text-sm text-gray-600">"Explore all available icons"</p>
-                                </div>
-                            </A>
-                        </div>
-                    </section>
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Feature flags"</h2>
+                            <p class="text-gray-600 mb-4">"Enable the features you need:"</p>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                                <h3 class="font-semibold text-blue-900 mb-2">"Framework features"</h3>
+                                <ul class="text-blue-800 text-sm space-y-1">
+                                    <li>"• leptos - Enable Leptos components"</li>
+                                    <li>"• dioxus - Enable Dioxus components"</li>
+                                    <li>"• yew - Enable Yew components"</li>
+                                    <li>"• sycamore - Enable Sycamore components"</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                <h3 class="font-semibold text-green-900 mb-2">"Icon category features"</h3>
+                                <ul class="text-green-800 text-sm space-y-1">
+                                    <li>"• all-icons - Include all icons (large bundle)"</li>
+                                    <li>"• essentials - Common icons (arrows, navigation, etc.)"</li>
+                                    <li>"• web-app - Icons for web applications"</li>
+                                    <li>"• mobile-app - Icons for mobile apps"</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Next steps"</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <A href="/docs/leptos">
+                                    <div class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <h3 class="font-semibold text-gray-900 mb-1">"Leptos Guide"</h3>
+                                        <p class="text-sm text-gray-600">"Learn how to use icons in Leptos"</p>
+                                    </div>
+                                </A>
+                                <A href="/icons">
+                                    <div class="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                        <h3 class="font-semibold text-gray-900 mb-1">"Browse Icons"</h3>
+                                        <p class="text-sm text-gray-600">"Explore all available icons"</p>
+                                    </div>
+                                </A>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </Layout>
-    }
+            </Layout>
+        }
 }
 
 // Framework-specific documentation pages
 #[component]
 pub fn LeptosDocsPage() -> impl IntoView {
     view! {
-        <Layout>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h1 class="text-4xl font-bold text-gray-900 mb-8">"Leptos Integration"</h1>
-                
-                <div class="space-y-8">
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use lucide::leptos::zap_icon::Zap;
+            <Layout>
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-8">"Leptos Integration"</h1>
+
+                    <div class="space-y-8">
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use lucide::leptos::zap_icon::Zap;
 use leptos::prelude::*;
 
 #[component]
@@ -179,15 +179,15 @@ pub fn MyComponent() -> impl IntoView {
         <Zap size=24 color=\"currentColor\" />
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"With CSS Classes"</h2>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use lucide::leptos::heart_icon::Heart;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"With CSS Classes"</h2>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use lucide::leptos::heart_icon::Heart;
 
 view! {
     <Heart 
@@ -196,41 +196,41 @@ view! {
         class=Some(\"hover:text-red-600 transition-colors\") 
     />
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </Layout>
-    }
+            </Layout>
+        }
 }
 
-#[component] 
+#[component]
 pub fn DioxusDocsPage() -> impl IntoView {
     view! {
-        <Layout>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h1 class="text-4xl font-bold text-gray-900 mb-8">"Dioxus Integration"</h1>
-                
-                <div class="space-y-8">
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Installation"</h2>
-                        <p class="text-gray-600 mb-4">"Add Lucide Rust to your Dioxus project:"</p>
-                        <CodeBlock 
-                            language="toml" 
-                            show_copy=true 
-code="[dependencies]
+            <Layout>
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-8">"Dioxus Integration"</h1>
+
+                    <div class="space-y-8">
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Installation"</h2>
+                            <p class="text-gray-600 mb-4">"Add Lucide Rust to your Dioxus project:"</p>
+                            <CodeBlock
+                                language="toml"
+                                show_copy=true
+    code="[dependencies]
 lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"dioxus\", \"essentials\"] }
 dioxus = \"0.6\""
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
-                        <p class="text-gray-600 mb-4">"Import and use icons in your Dioxus components:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use dioxus::prelude::*;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
+                            <p class="text-gray-600 mb-4">"Import and use icons in your Dioxus components:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use dioxus::prelude::*;
 use lucide::dioxus::zap_icon::Zap;
 
 #[component]
@@ -242,16 +242,16 @@ fn App() -> Element {
         }
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Icon Properties"</h2>
-                        <p class="text-gray-600 mb-4">"All Lucide icons support these properties:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use lucide::dioxus::heart_icon::Heart;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Icon Properties"</h2>
+                            <p class="text-gray-600 mb-4">"All Lucide icons support these properties:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use lucide::dioxus::heart_icon::Heart;
 
 rsx! {
     Heart {
@@ -263,16 +263,16 @@ rsx! {
         onclick: |_| println!(\"Clicked!\"), // Event handlers
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Complete Example"</h2>
-                        <p class="text-gray-600 mb-4">"A complete Dioxus app with Lucide icons:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use dioxus::prelude::*;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Complete Example"</h2>
+                            <p class="text-gray-600 mb-4">"A complete Dioxus app with Lucide icons:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use dioxus::prelude::*;
 use lucide::dioxus::{
     home_icon::Home,
     search_icon::Search,
@@ -323,41 +323,41 @@ fn App() -> Element {
         }
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </Layout>
-    }
+            </Layout>
+        }
 }
 
 #[component]
 pub fn YewDocsPage() -> impl IntoView {
     view! {
-        <Layout>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h1 class="text-4xl font-bold text-gray-900 mb-8">"Yew Integration"</h1>
-                
-                <div class="space-y-8">
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Installation"</h2>
-                        <p class="text-gray-600 mb-4">"Add Lucide Rust to your Yew project:"</p>
-                        <CodeBlock 
-                            language="toml" 
-                            show_copy=true 
-code="[dependencies]
+            <Layout>
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-8">"Yew Integration"</h1>
+
+                    <div class="space-y-8">
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Installation"</h2>
+                            <p class="text-gray-600 mb-4">"Add Lucide Rust to your Yew project:"</p>
+                            <CodeBlock
+                                language="toml"
+                                show_copy=true
+    code="[dependencies]
 lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"yew\", \"essentials\"] }
 yew = \"0.21\""
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
-                        <p class="text-gray-600 mb-4">"Import and use icons in your Yew components:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use yew::prelude::*;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
+                            <p class="text-gray-600 mb-4">"Import and use icons in your Yew components:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use yew::prelude::*;
 use lucide::yew::zap_icon::Zap;
 
 #[function_component]
@@ -369,16 +369,16 @@ fn App() -> Html {
         </div>
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Icon Properties"</h2>
-                        <p class="text-gray-600 mb-4">"All Lucide icons support these properties:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use lucide::yew::heart_icon::Heart;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Icon Properties"</h2>
+                            <p class="text-gray-600 mb-4">"All Lucide icons support these properties:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use lucide::yew::heart_icon::Heart;
 use yew::prelude::*;
 
 html! {
@@ -391,16 +391,16 @@ html! {
         onclick={Callback::from(|_| log!(\"Clicked!\"))} // Event handlers
     />
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Complete Example"</h2>
-                        <p class="text-gray-600 mb-4">"A complete Yew app with navigation using Lucide icons:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use yew::prelude::*;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Complete Example"</h2>
+                            <p class="text-gray-600 mb-4">"A complete Yew app with navigation using Lucide icons:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use yew::prelude::*;
 use lucide::yew::{
     home_icon::Home,
     search_icon::Search,
@@ -471,41 +471,41 @@ fn App() -> Html {
         </div>
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </Layout>
-    }
+            </Layout>
+        }
 }
 
 #[component]
 pub fn SycamoreDocsPage() -> impl IntoView {
     view! {
-        <Layout>
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <h1 class="text-4xl font-bold text-gray-900 mb-8">"Sycamore Integration"</h1>
-                
-                <div class="space-y-8">
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Installation"</h2>
-                        <p class="text-gray-600 mb-4">"Add Lucide Rust to your Sycamore project:"</p>
-                        <CodeBlock 
-                            language="toml" 
-                            show_copy=true 
-code="[dependencies]
+            <Layout>
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-8">"Sycamore Integration"</h1>
+
+                    <div class="space-y-8">
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Installation"</h2>
+                            <p class="text-gray-600 mb-4">"Add Lucide Rust to your Sycamore project:"</p>
+                            <CodeBlock
+                                language="toml"
+                                show_copy=true
+    code="[dependencies]
 lucide = { package = \"lucide-rust\", version = \"0.1\", features = [\"sycamore\", \"essentials\"] }
 sycamore = \"0.9\""
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
-                        <p class="text-gray-600 mb-4">"Import and use icons in your Sycamore components:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use sycamore::prelude::*;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Basic Usage"</h2>
+                            <p class="text-gray-600 mb-4">"Import and use icons in your Sycamore components:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use sycamore::prelude::*;
 use lucide::sycamore::zap_icon::Zap;
 
 #[component]
@@ -517,16 +517,16 @@ fn App() -> impl IntoView {
         }
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Icon Properties"</h2>
-                        <p class="text-gray-600 mb-4">"All Lucide icons support these properties:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use lucide::sycamore::heart_icon::Heart;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Icon Properties"</h2>
+                            <p class="text-gray-600 mb-4">"All Lucide icons support these properties:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use lucide::sycamore::heart_icon::Heart;
 use sycamore::prelude::*;
 
 view! {
@@ -538,16 +538,16 @@ view! {
         style=\"margin: 10px;\",      // Inline styles
     )
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"With Reactivity"</h2>
-                        <p class="text-gray-600 mb-4">"Using icons with Sycamore's reactive system:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use sycamore::prelude::*;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"With Reactivity"</h2>
+                            <p class="text-gray-600 mb-4">"Using icons with Sycamore's reactive system:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use sycamore::prelude::*;
 use lucide::sycamore::{
     heart_icon::Heart,
     heart_filled_icon::HeartFilled
@@ -581,16 +581,16 @@ fn LikeButton() -> impl IntoView {
         }
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
 
-                    <section>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-4">"Complete Example"</h2>
-                        <p class="text-gray-600 mb-4">"A complete Sycamore app with navigation using Lucide icons:"</p>
-                        <CodeBlock 
-                            language="rust" 
-                            show_copy=true 
-code="use sycamore::prelude::*;
+                        <section>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-4">"Complete Example"</h2>
+                            <p class="text-gray-600 mb-4">"A complete Sycamore app with navigation using Lucide icons:"</p>
+                            <CodeBlock
+                                language="rust"
+                                show_copy=true
+    code="use sycamore::prelude::*;
 use lucide::sycamore::{
     home_icon::Home,
     search_icon::Search,
@@ -660,10 +660,10 @@ fn App() -> impl IntoView {
         }
     }
 }" 
-                        />
-                    </section>
+                            />
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </Layout>
-    }
+            </Layout>
+        }
 }

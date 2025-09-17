@@ -11,12 +11,13 @@ pub fn CodeBlock(
     let copy_to_clipboard = move |_| {
         // Simple copy indication - actual clipboard functionality can be added later
         set_copied.set(true);
-        
-        // Reset copied state after 2 seconds  
+
+        // Reset copied state after 2 seconds
         let handle = set_timeout_with_handle(
             move || set_copied.set(false),
             std::time::Duration::from_secs(2),
-        ).expect("Failed to set timeout");
+        )
+        .expect("Failed to set timeout");
         handle.forget();
     };
 
@@ -49,7 +50,7 @@ pub fn CodeBlock(
             } else {
                 view! { <div></div> }.into_any()
             }}
-            
+
             <div class="flex items-center justify-between px-4 py-2 bg-gray-800 border-b border-gray-700">
                 <span class="text-sm text-gray-300 font-medium">{language.clone()}</span>
                 {move || if copied.get() {
@@ -60,7 +61,7 @@ pub fn CodeBlock(
                     view! { <span></span> }.into_any()
                 }}
             </div>
-            
+
             <pre class="overflow-x-auto p-4">
                 <code class="text-sm text-gray-100 whitespace-pre">
                     {code.clone()}
@@ -92,7 +93,10 @@ impl Drop for TimeoutHandle {
     }
 }
 
-pub fn set_timeout_with_handle<F>(f: F, duration: std::time::Duration) -> Result<TimeoutHandle, JsValue>
+pub fn set_timeout_with_handle<F>(
+    f: F,
+    duration: std::time::Duration,
+) -> Result<TimeoutHandle, JsValue>
 where
     F: FnOnce() + 'static,
 {

@@ -27,7 +27,7 @@ pub fn ChevronsLeftRight(props: &ChevronsLeftRightProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

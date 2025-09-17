@@ -27,7 +27,7 @@ pub fn Voicemail(props: &VoicemailProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

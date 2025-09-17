@@ -5,10 +5,10 @@
 pub mod dioxus;
 #[cfg(feature = "leptos")]
 pub mod leptos;
-#[cfg(feature = "yew")]
-pub mod yew;
 #[cfg(feature = "sycamore")]
 pub mod sycamore;
+#[cfg(feature = "yew")]
+pub mod yew;
 
 pub mod types {
     #[derive(Clone, Debug)]
@@ -21,7 +21,12 @@ pub mod types {
 
     impl Default for IconProps {
         fn default() -> Self {
-            Self { size: 24, color: "currentColor", stroke_width: 2.0, class: None }
+            Self {
+                size: 24,
+                color: "currentColor",
+                stroke_width: 2.0,
+                class: None,
+            }
         }
     }
 }

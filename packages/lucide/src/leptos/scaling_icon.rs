@@ -16,7 +16,7 @@ pub fn Scaling(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

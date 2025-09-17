@@ -27,7 +27,7 @@ pub fn Settings2(props: &Settings2Props) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

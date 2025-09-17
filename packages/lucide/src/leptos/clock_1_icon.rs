@@ -16,7 +16,7 @@ pub fn Clock1(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

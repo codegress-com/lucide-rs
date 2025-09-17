@@ -27,7 +27,7 @@ pub fn Navigation2Off(props: &Navigation2OffProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

@@ -3,12 +3,12 @@ use leptos::prelude::*;
 #[component]
 pub fn SearchBar(search_query: WriteSignal<String>) -> impl IntoView {
     let (current_value, set_current_value) = signal(String::new());
-    
+
     // Sync the local state with the search query
     Effect::new(move |_| {
         search_query.set(current_value.get());
     });
-    
+
     view! {
         <div class="relative max-w-md mx-auto">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

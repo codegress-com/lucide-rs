@@ -1,6 +1,9 @@
 use leptos::prelude::*;
 use leptos_router::components::A;
-use lucide::leptos::{layout_grid_icon::LayoutGrid, download_icon::Download, book_open_icon::BookOpen, github_icon::Github, menu_icon::Menu};
+use lucide::leptos::{
+    book_open_icon::BookOpen, download_icon::Download, github_icon::Github,
+    layout_grid_icon::LayoutGrid, menu_icon::Menu,
+};
 
 #[component]
 pub fn Navbar() -> impl IntoView {
@@ -45,8 +48,8 @@ pub fn Navbar() -> impl IntoView {
                                 <span>"Docs"</span>
                             </div>
                         </A>
-                        <a 
-                            href="https://github.com/codegress-com/lucide-rs" 
+                        <a
+                            href="https://github.com/codegress-com/lucide-rs"
                             target="_blank"
                             class="inline-flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white bg-neutral-900 hover:bg-neutral-800 rounded-lg transition-colors duration-150"
                         >
@@ -57,7 +60,7 @@ pub fn Navbar() -> impl IntoView {
 
                     // Mobile menu button
                     <div class="md:hidden">
-                        <button 
+                        <button
                             on:click=move |_| set_mobile_menu_open.update(|open| *open = !*open)
                             class="text-gray-700 hover:text-gray-900 focus:outline-none focus:text-gray-900 p-2 transition-colors duration-150"
                         >
@@ -67,7 +70,7 @@ pub fn Navbar() -> impl IntoView {
                 </div>
 
                 // Mobile Navigation Menu
-                <div 
+                <div
                     class=move || {
                         if is_mobile_menu_open.get() {
                             "md:hidden py-4 border-t border-gray-200"
@@ -86,8 +89,8 @@ pub fn Navbar() -> impl IntoView {
                         <A href="/docs">
                             <span class="text-gray-700 hover:text-[#D34516] px-3 py-2 text-sm font-medium transition-colors duration-150">"Documentation"</span>
                         </A>
-                        <a 
-                            href="https://github.com/codegress-com/lucide-rs" 
+                        <a
+                            href="https://github.com/codegress-com/lucide-rs"
                             target="_blank"
                             class="inline-flex items-center justify-center px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-800 transition-colors duration-150 mx-3 mt-2"
                         >

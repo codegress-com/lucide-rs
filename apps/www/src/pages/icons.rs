@@ -1,10 +1,10 @@
+use crate::components::{IconGrid, Layout, SearchBar};
 use leptos::prelude::*;
-use crate::components::{Layout, SearchBar, IconGrid};
 
 #[component]
 pub fn IconsPage() -> impl IntoView {
     let (search_query, set_search_query) = signal(String::new());
-    
+
     view! {
         <Layout>
             <div class="bg-white py-16">
@@ -13,7 +13,7 @@ pub fn IconsPage() -> impl IntoView {
                         <h1 class="text-5xl font-bold text-neutral-800 mb-6">"Icon Library"</h1>
                         <p class="text-xl text-neutral-600 max-w-2xl mx-auto">"Browse and search through our collection of beautiful Lucide icons"</p>
                     </div>
-                    
+
                     <div class="mb-10">
                         <SearchBar search_query=set_search_query />
                     </div>

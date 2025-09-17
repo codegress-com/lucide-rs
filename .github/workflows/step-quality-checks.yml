@@ -87,14 +87,11 @@ jobs:
         run: |
           # Test core Lucide library
           echo "Testing Lucide library..."
-          cargo test -p lucide --all-features
+          cargo test -p lucide-rust --all-features
           
           # Test example applications (compile check only)
           echo "Building example applications..."
-          cargo build -p lucide-yew-example
-          cargo build -p lucide-leptos-csr-example
-          cargo build -p lucide-dioxus-web-example
-          cargo build -p lucide-sycamore-example
+          cargo build -p lucide-docs
 
   # Verify that all packages can be built successfully
   build-check:
@@ -116,11 +113,11 @@ jobs:
         run: |
           # Build core library with all features
           echo "Building Lucide library..."
-          cargo build -p lucide --all-features
+          cargo build -p lucide-rust --all-features
           
           # Build example applications
           echo "Building example applications..."
-          cargo build --workspace --exclude lucide
+          cargo build -p lucide-docs
 
   # Summary job that requires all checks to pass
   quality-gate:

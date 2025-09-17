@@ -23,7 +23,7 @@ pub fn Move3D(props: Move3DProps) -> Element {
     } else {
         props.stroke_width
     };
-    
+
     rsx! {
         svg {
             "xmlns": "http://www.w3.org/2000/svg",

@@ -11,7 +11,7 @@ extern "C" {
 fn main() {
     console_error_panic_hook::set_once();
     tracing_wasm::set_as_global_default();
-    
+
     log("WASM module started");
 
     // Hide loading indicator immediately
@@ -21,7 +21,7 @@ fn main() {
                 let _ = body.class_list().add_1("loaded");
                 log("Added loaded class to body");
             }
-            
+
             // Also directly hide the loading element
             if let Some(loading_el) = document.get_element_by_id("loading") {
                 let _ = loading_el.set_attribute("style", "display: none !important;");

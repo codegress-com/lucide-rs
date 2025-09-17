@@ -27,7 +27,7 @@ pub fn MousePointer2(props: &MousePointer2Props) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}

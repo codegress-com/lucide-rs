@@ -23,7 +23,7 @@ pub fn Grid2X2X(props: Grid2X2XProps) -> Element {
     } else {
         props.stroke_width
     };
-    
+
     rsx! {
         svg {
             "xmlns": "http://www.w3.org/2000/svg",

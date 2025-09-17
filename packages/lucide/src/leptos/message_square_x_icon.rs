@@ -16,7 +16,7 @@ pub fn MessageSquareX(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

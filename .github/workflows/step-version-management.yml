@@ -108,8 +108,16 @@ jobs:
 
           git tag $TAG_NAME
 
-          # Push changes and tag to remote
+          # Pull latest changes to avoid conflicts
           CURRENT_BRANCH=$(git branch --show-current)
+          echo "Pulling latest changes from $CURRENT_BRANCH..."
+          git pull origin $CURRENT_BRANCH --rebase || {
+            echo "❌ Failed to pull latest changes - there might be conflicts"
+            echo "This could happen if concurrent changes were made to the repository"
+            exit 1
+          }
+
+          # Push changes and tag to remote
           echo "Pushing changes to current branch: $CURRENT_BRANCH"
           git push origin $CURRENT_BRANCH
           git push origin $TAG_NAME

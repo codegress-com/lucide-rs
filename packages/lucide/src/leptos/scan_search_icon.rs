@@ -16,7 +16,7 @@ pub fn ScanSearch(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

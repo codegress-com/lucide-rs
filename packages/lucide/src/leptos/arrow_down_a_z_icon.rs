@@ -16,7 +16,7 @@ pub fn ArrowDownAZ(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

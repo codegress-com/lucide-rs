@@ -16,7 +16,7 @@ pub fn Bolt(
             stroke_width.get()
         }
     });
-    
+
     view! {
         <svg
             node_ref=node_ref

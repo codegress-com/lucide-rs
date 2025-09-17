@@ -27,7 +27,7 @@ pub fn CircleArrowRight(props: &CircleArrowRightProps) -> Html {
     } else {
         props.stroke_width
     };
-    
+
     html! {
         <svg
             ref={props.node_ref.clone()}
