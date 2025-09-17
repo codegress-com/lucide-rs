@@ -84,7 +84,7 @@ lucide-rust = {
 | `arrows` | 20+ | Directional indicators |
 | `tools` | 35+ | Settings, edit, search, filter |
 
-[📋 **View All Categories & Icons →**](https://github.com/codegress-com/lucide-rust/main/ICONS.md)
+[📋 **View All Categories & Icons →**](https://github.com/codegress-com/lucide-rust/blob/main/ICONS.md)
 
 ### Meta Features
 
@@ -110,7 +110,7 @@ All icon components support these props:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/codegress-com/lucide-rust/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/codegress-com/lucide-rust/blob/main/LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
